@@ -1,0 +1,16 @@
+Package: Rcbpp
+Title: R Utilities for CBPP Research
+Version: 0.1.0
+Authors@R: person(
+  given = "Matt",
+  family = "Saenz",
+  email = "vsaenz@cbpp.org",
+  role = c("aut", "cre"))
+Description: R utilities to streamline CBPP research.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports:
+    readxl,
+    glue
