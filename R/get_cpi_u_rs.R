@@ -2,12 +2,20 @@
 
 #' Load CPI-U-RS data
 #'
-#' \code{get_cpi_u_rs()} loads CPI-U-RS calendar year averages from the
+#' \code{get_cpi_u_rs()} loads all available CPI-U-RS calendar year averages
+#' from the
 #' \href{https://www.bls.gov/cpi/research-series/r-cpi-u-rs-home.htm}{BLS website}.
 #'
-#' @param base_year Optionally specify a base year column.
-#' @return A tibble.
+#' @param base_year Year to use for base year column. This argument is optional.
+#'   If left \code{NULL} (default), data are returned without a base year
+#'   column.
+#' @return A \href{https://tibble.tidyverse.org/}{tibble}.
 #'
+#' @examples
+#' # Load all available CPI-U-RS calendar year averages
+#' get_cpi_u_rs()
+#' # Specify a base year column
+#' get_cpi_u_rs(base_year = 2019)
 #' @export
 get_cpi_u_rs <- function(base_year = NULL) {
 

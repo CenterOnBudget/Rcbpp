@@ -7,12 +7,21 @@
 get_cpi_u_rs(base_year = NULL)
 }
 \arguments{
-\item{base_year}{Optionally specify a base year column.}
+\item{base_year}{Year to use for base year column. This argument is optional.
+If left \code{NULL} (default), data are returned without a base year
+column.}
 }
 \value{
-A tibble.
+A \href{https://tibble.tidyverse.org/}{tibble}.
 }
 \description{
-\code{get_cpi_u_rs()} loads CPI-U-RS calendar year averages from the
+\code{get_cpi_u_rs()} loads all available CPI-U-RS calendar year averages
+from the
 \href{https://www.bls.gov/cpi/research-series/r-cpi-u-rs-home.htm}{BLS website}.
+}
+\examples{
+# Load all available CPI-U-RS calendar year averages
+get_cpi_u_rs()
+# Specify a base year column
+get_cpi_u_rs(base_year = 2019)
 }
