@@ -19,7 +19,7 @@
 #' @export
 get_cpi_u_rs <- function(base_year = NULL) {
 
-  # Check args ----
+  # Check args -----------------------------------------------------------------
 
   if (!is.null(base_year)) {
     if (length(base_year) != 1 || !is.numeric(base_year)) {
@@ -27,7 +27,7 @@ get_cpi_u_rs <- function(base_year = NULL) {
     }
   }
 
-  # Get data ----
+  # Get data -------------------------------------------------------------------
 
   temp <- tempfile()
   utils::download.file(
@@ -40,11 +40,13 @@ get_cpi_u_rs <- function(base_year = NULL) {
   df <- readxl::read_excel(temp, skip = 5)
   file.remove(temp)
 
-  # Clean and return data ----
+  # Clean data -----------------------------------------------------------------
 
   names(df) <- tolower(names(df))
   df <- df[df$year >= 1978, c("year", "avg")]
   names(df)[2] <- "cpi_u_rs"
+
+  # Return data ----------------------------------------------------------------
 
   if (is.null(base_year)) {
     return(df)
