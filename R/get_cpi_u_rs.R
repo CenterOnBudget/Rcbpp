@@ -54,7 +54,7 @@ get_cpi_u_rs <- function(base_year = NULL) {
     stop(
       glue::glue(
         "Invalid `base_year`, ",
-        "years {df$year[1]} to {df$year[length(df$year)]} are available"
+        "years {min(df$year)} to {max(df$year)} are available"
       ),
       call. = FALSE
     )
