@@ -7,21 +7,17 @@
 #' Latino; Black only, not Latino; Latino (any race); Asian only, not Latino;
 #' and another race or multi-racial, not Latino.
 #'
-#' \code{make_race_eth_var()} is designed to work with original, Census-based
-#' ACS or CPS microdata. (As opposed to Census microdata that have been
-#' processed by, for examples, IPUMS.) Therefore, prior to using this function,
-#' you should ensure that your data are behaving according to their official
-#' data dictionary.
-#'
 #' For the ACS, years 2005 to present are supported and required variables
 #' are \code{rac1p} and \code{hisp}. For the CPS ASEC, survey years 2003 to
 #' present are supported and required variables are \code{prdtrace} and
 #' \code{pehspnon}. For the basic monthly CPS, years 2003 to present are
 #' supported and required variables are \code{ptdtrace} and \code{pehspnon}.
 #'
-#' In order to use \code{make_race_eth_var()}, the required variables for a
-#' given \code{dataset} must have lowercase names, be \code{numeric}, and not
-#' contain any \code{NA} values.
+#' @section Warning:
+#' This function is designed to work with original, Census-based ACS or CPS
+#' microdata. (As opposed to Census microdata that have been processed by, for
+#' examples, IPUMS.) Therefore, prior to using this function, you should ensure
+#' that your data are behaving according to their official data dictionary.
 #'
 #' @param df Data frame to add race/ethnicity variable to.
 #' @param dataset Dataset corresponding to \code{df}. One of \code{"acs"},
@@ -33,30 +29,11 @@
 #' @export
 make_race_eth_var <- function(df, dataset, name = "race_eth") {
 
-  # Preliminary checks ---------------------------------------------------------
+  # Check args -----------------------------------------------------------------
 
-  if (!is.data.frame(df)) {
-    stop("`df` must be a data frame", call. = FALSE)
-  }
+  check_args(df, dataset, name)
 
-  if (length(dataset) != 1 || !is.character(dataset)) {
-    stop("`dataset` must be a string", call. = FALSE)
-  }
-
-  datasets <- c("acs", "cps_asec", "cps_basic")
-
-  if (!(dataset %in% datasets)) {
-    stop(
-      "`dataset` must be one of `acs`, `cps_asec`, or `cps_basic`",
-      call. = FALSE
-    )
-  }
-
-  if (length(name) != 1 || !is.character(name)) {
-    stop("`name` must be a string", call. = FALSE)
-  }
-
-  # Dataset info ---------------------------------------------------------------
+  # Get dataset info -----------------------------------------------------------
 
   lookup <- list(
     acs = list(
@@ -85,54 +62,14 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
     )
   )
 
-  # Data frame checks ----------------------------------------------------------
-
   racevar <- lookup[[dataset]]$racevar
   hispvar <- lookup[[dataset]]$hispvar
   race <- lookup[[dataset]]$race
   hisp <- lookup[[dataset]]$hisp
 
-  needed_vars <- c(racevar, hispvar)
+  # Check data frame -----------------------------------------------------------
 
-  if (!all(needed_vars %in% names(df))) {
-    stop(
-      glue::glue(
-        "If `dataset` is `{dataset}`, `df` must contain `{racevar}` and ",
-        "`{hispvar}` columns"
-      ),
-      call. = FALSE
-    )
-  }
-
-  if (name %in% needed_vars) {
-    stop(
-      glue::glue("Cannot use `{racevar}` or `{hispvar}` for `name`"),
-      call. = FALSE
-    )
-  }
-
-  if (name %in% names(df)) {
-    stop(
-      glue::glue("`df` cannot already contain `{name}` column"),
-      call. = FALSE
-    )
-  }
-
-  if (!is.numeric(df[[racevar]]) || !is.numeric(df[[hispvar]])) {
-    stop(
-      glue::glue("`{racevar}` and `{hispvar}` columns must be numeric"),
-      call. = FALSE
-    )
-  }
-
-  if (any(is.na(df[[racevar]])) || any(is.na(df[[hispvar]]))) {
-    stop(
-      glue::glue(
-        "`{racevar}` and `{hispvar}` columns cannot contain `NA` values"
-      ),
-      call. = FALSE
-    )
-  }
+  check_df(df, needed_vars = c(racevar, hispvar), dataset)
 
   # Make race/ethnicity var ----------------------------------------------------
 
@@ -169,4 +106,133 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
   # Return data frame ----------------------------------------------------------
 
   df
+}
+
+
+#' Make age group variable
+#'
+#' \code{make_age_group_var()} creates a 3-level age group variable in ACS,
+#' CPS ASEC, or basic monthly CPS microdata. Levels include under 18, 18 to 64,
+#' and 65 and over.
+#'
+#' For the ACS, years 2005 to present are supported and the required variable
+#' is \code{agep}. For the CPS ASEC, survey years 1998 to present are supported
+#' and the required variable is \code{a_age}. For the basic monthly CPS, years
+#' 1998 to present are supported and the required variable is \code{prtage}.
+#'
+#' @inheritSection make_race_eth_var Warning
+#'
+#' @param df Data frame to add age group variable to.
+#' @param name Name to give age group variable. Defaults to \code{"age_group"}.
+#' @inheritParams make_race_eth_var
+#' @return A data frame.
+#'
+#' @export
+make_age_group_var <- function(df, dataset, name = "age_group") {
+
+  # Checks args ----------------------------------------------------------------
+
+  check_args(df, dataset, name)
+
+  # Get dataset info -----------------------------------------------------------
+
+  lookup <- c(acs = "agep", cps_asec = "a_age", cps_basic = "prtage")
+  agevar <- lookup[dataset]
+
+  # Check data frame -----------------------------------------------------------
+
+  check_df(df, needed_vars = agevar, dataset)
+
+  # Make age group var ---------------------------------------------------------
+
+  age_group <- c("Under 18", "18 to 64", "65 and over")
+  newvar <- name
+
+  df[[newvar]] <- ifelse(
+    df[[agevar]] < 18,
+    age_group[1],
+    ifelse(
+      df[[agevar]] < 65,
+      age_group[2],
+      age_group[3]
+    )
+  )
+
+  df[[newvar]] <- factor(df[[newvar]], levels = age_group)
+
+  # Return data frame ----------------------------------------------------------
+
+  df
+}
+
+
+# Utility functions
+
+# Check arguments
+
+check_args <- function(df, dataset, name) {
+  if (!is.data.frame(df)) {
+    stop("`df` must be a data frame", call. = FALSE)
+  }
+
+  if (length(dataset) != 1 || !is.character(dataset)) {
+    stop("`dataset` must be a string", call. = FALSE)
+  }
+
+  if (!(dataset %in% c("acs", "cps_asec", "cps_basic"))) {
+    stop(
+      "`dataset` must be one of `acs`, `cps_asec`, or `cps_basic`",
+      call. = FALSE
+    )
+  }
+
+  if (length(name) != 1 || !is.character(name)) {
+    stop("`name` must be a string", call. = FALSE)
+  }
+
+  if (name %in% names(df)) {
+    stop(
+      glue::glue("Invalid `name`, `df` already contains `{name}` column"),
+      call. = FALSE
+    )
+  }
+}
+
+
+# Check data frame
+
+check_df <- function(df, needed_vars, dataset) {
+
+  # Check that needed vars are present
+
+  needed_vars_str <- paste("`", needed_vars, "`", sep = "", collapse = ", ")
+
+  if (!all(needed_vars %in% names(df))) {
+    stop(
+      glue::glue(
+        "If `dataset` is `{dataset}`, `df` must contain ",
+        "the following column(s): {needed_vars_str}"
+      ),
+      call. = FALSE
+    )
+  }
+
+  # Check that needed vars are numeric and free of `NA` values
+
+  needed_vars_df <- df[, needed_vars, drop = FALSE]
+
+  for (i in seq_along(needed_vars_df)) {
+    col_name <- names(needed_vars_df)[i]
+
+    if (!is.numeric(needed_vars_df[[i]])) {
+      stop(glue::glue("`{col_name}` column must be numeric"), call. = FALSE)
+    }
+
+    if (any(is.na(needed_vars_df[[i]]))) {
+      stop(
+        glue::glue("`{col_name}` column cannot contain `NA` values"),
+        call. = FALSE
+      )
+    }
+  }
 }

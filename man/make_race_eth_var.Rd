@@ -25,19 +25,17 @@ Latino; Black only, not Latino; Latino (any race); Asian only, not Latino;
 and another race or multi-racial, not Latino.
 }
 \details{
-\code{make_race_eth_var()} is designed to work with original, Census-based
-ACS or CPS microdata. (As opposed to Census microdata that have been
-processed by, for examples, IPUMS.) Therefore, prior to using this function,
-you should ensure that your data are behaving according to their official
-data dictionary.
-
 For the ACS, years 2005 to present are supported and required variables
 are \code{rac1p} and \code{hisp}. For the CPS ASEC, survey years 2003 to
 present are supported and required variables are \code{prdtrace} and
 \code{pehspnon}. For the basic monthly CPS, years 2003 to present are
 supported and required variables are \code{ptdtrace} and \code{pehspnon}.
-
-In order to use \code{make_race_eth_var()}, the required variables for a
-given \code{dataset} must have lowercase names, be \code{numeric}, and not
-contain any \code{NA} values.
 }
+\section{Warning}{
+
+This function is designed to work with original, Census-based ACS or CPS
+microdata. (As opposed to Census microdata that have been processed by, for
+examples, IPUMS.) Therefore, prior to using this function, you should ensure
+that your data are behaving according to their official data dictionary.
+}
+
