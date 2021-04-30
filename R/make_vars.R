@@ -31,7 +31,7 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 
   # Check args -----------------------------------------------------------------
 
-  check_args(df, dataset, name)
+  check_args(df = df, dataset = dataset, name = name)
 
   # Get dataset info -----------------------------------------------------------
 
@@ -69,7 +69,7 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 
   # Check data frame -----------------------------------------------------------
 
-  check_df(df, needed_vars = c(racevar, hispvar), dataset)
+  check_df(df = df, needed_vars = c(racevar, hispvar))
 
   # Make race/ethnicity var ----------------------------------------------------
 
@@ -132,7 +132,7 @@ make_age_group_var <- function(df, dataset, name = "age_group") {
 
   # Checks args ----------------------------------------------------------------
 
-  check_args(df, dataset, name)
+  check_args(df = df, dataset = dataset, name = name)
 
   # Get dataset info -----------------------------------------------------------
 
@@ -141,7 +141,7 @@ make_age_group_var <- function(df, dataset, name = "age_group") {
 
   # Check data frame -----------------------------------------------------------
 
-  check_df(df, needed_vars = agevar, dataset)
+  check_df(df = df, needed_vars = agevar)
 
   # Make age group var ---------------------------------------------------------
 
@@ -166,10 +166,6 @@ make_age_group_var <- function(df, dataset, name = "age_group") {
 }
 
 
-# Utility functions
-
-# Check arguments
-
 check_args <- function(df, dataset, name) {
   if (!is.data.frame(df)) {
     stop("`df` must be a data frame", call. = FALSE)
@@ -192,47 +188,33 @@ check_args <- function(df, dataset, name) {
 
   if (name %in% names(df)) {
     stop(
-      glue::glue("Invalid `name`, `df` already contains `{name}` column"),
+      "Invalid `name`, `df` already contains `", name, "` column",
       call. = FALSE
     )
   }
 }
 
 
-# Check data frame
-
-check_df <- function(df, needed_vars, dataset) {
-
-  # Check that needed vars are present
-
-  needed_vars_str <- paste("`", needed_vars, "`", sep = "", collapse = ", ")
-
+check_df <- function(df, needed_vars) {
   if (!all(needed_vars %in% names(df))) {
     stop(
-      glue::glue(
-        "If `dataset` is `{dataset}`, `df` must contain ",
-        "the following column(s): {needed_vars_str}"
-      ),
+      "`df` must contain the following column(s): ",
+      paste0("`", needed_vars, "`", collapse = ", "),
       call. = FALSE
     )
   }
 
-  # Check that needed vars are numeric and free of `NA` values
+  df <- df[, needed_vars, drop = FALSE]
 
-  needed_vars_df <- df[, needed_vars, drop = FALSE]
+  for (i in seq_along(df)) {
+    col_name <- names(df)[i]
 
-  for (i in seq_along(needed_vars_df)) {
-    col_name <- names(needed_vars_df)[i]
-
-    if (!is.numeric(needed_vars_df[[i]])) {
-      stop(glue::glue("`{col_name}` column must be numeric"), call. = FALSE)
+    if (!is.numeric(df[[i]])) {
+      stop("`", col_name, "` column must be numeric", call. = FALSE)
     }
 
-    if (any(is.na(needed_vars_df[[i]]))) {
-      stop(
-        glue::glue("`{col_name}` column cannot contain `NA` values"),
-        call. = FALSE
-      )
+    if (any(is.na(df[[i]]))) {
+      stop("`", col_name, "` column cannot contain `NA` values", call. = FALSE)
     }
   }
 }
