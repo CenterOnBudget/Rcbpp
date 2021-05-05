@@ -54,15 +54,13 @@ get_cpi_u_rs <- function(base_year = NULL) {
 
   if (!(base_year %in% df$year)) {
     stop(
-      glue::glue(
-        "Invalid `base_year`, ",
-        "years {min(df$year)} to {max(df$year)} are available"
-      ),
+      "Invalid `base_year`, years ", min(df$year), " to ", max(df$year),
+      " are available",
       call. = FALSE
     )
   }
 
-  base_year_col <- glue::glue("cpi_u_rs_{base_year}")
+  base_year_col <- paste0("cpi_u_rs_", base_year)
   df[[base_year_col]] <- df$cpi_u_rs[df$year == base_year]
   df
 }

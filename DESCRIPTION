@@ -1,6 +1,6 @@
 Package: Rcbpp
 Title: R Utilities for CBPP Research
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person(
   given = "Matt",
   family = "Saenz",
@@ -12,5 +12,4 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Imports:
-    readxl,
-    glue
+    readxl
