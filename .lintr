@@ -1,0 +1,1 @@
+exclusions: list("R/get_cpi_u_rs.R" = 7)
