@@ -171,18 +171,18 @@ check_args <- function(df, dataset, name) {
     stop("`df` must be a data frame", call. = FALSE)
   }
 
-  if (length(dataset) != 1 || !is.character(dataset)) {
+  if (!is_string(dataset)) {
     stop("`dataset` must be a string", call. = FALSE)
   }
 
-  if (!(dataset %in% c("acs", "cps_asec", "cps_basic"))) {
+  if (dataset %!in% c("acs", "cps_asec", "cps_basic")) {
     stop(
-      "`dataset` must be one of `acs`, `cps_asec`, or `cps_basic`",
+      '`dataset` must be one of "acs", "cps_asec", or "cps_basic"',
       call. = FALSE
     )
   }
 
-  if (length(name) != 1 || !is.character(name)) {
+  if (!is_string(name)) {
     stop("`name` must be a string", call. = FALSE)
   }
 

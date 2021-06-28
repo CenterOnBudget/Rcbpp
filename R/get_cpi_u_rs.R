@@ -21,15 +21,13 @@ get_cpi_u_rs <- function(base_year = NULL) {
 
   # Check args -----------------------------------------------------------------
 
-  if (!is.null(base_year)) {
-    if (length(base_year) != 1 || !is.numeric(base_year)) {
-      stop("Pass one `base_year` at a time as a number", call. = FALSE)
-    }
+  if (!is.null(base_year) && !is_number(base_year)) {
+    stop("`base_year` must be `NULL` or a number", call. = FALSE)
   }
 
   # Get data -------------------------------------------------------------------
 
-  temp <- tempfile()
+  temp <- tempfile(fileext = ".xlsx")
   utils::download.file(
     url = "https://www.bls.gov/cpi/research-series/r-cpi-u-rs-allitems.xlsx",
     destfile = temp,
@@ -37,7 +35,7 @@ get_cpi_u_rs <- function(base_year = NULL) {
     quiet = TRUE
   )
 
-  df <- readxl::read_excel(temp, skip = 5)
+  df <- readxl::read_xlsx(temp, skip = 5)
   file.remove(temp)
 
   # Clean data -----------------------------------------------------------------
@@ -52,10 +50,9 @@ get_cpi_u_rs <- function(base_year = NULL) {
     return(df)
   }
 
-  if (!(base_year %in% df$year)) {
+  if (base_year %!in% df$year) {
     stop(
-      "Invalid `base_year`, years ", min(df$year), " to ", max(df$year),
-      " are available",
+      "Invalid `base_year`, years ", min(df$year), " to ", max(df$year), " are available",
       call. = FALSE
     )
   }
