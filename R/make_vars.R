@@ -214,7 +214,7 @@ check_df <- function(df, needed_vars) {
     }
 
     if (any(is.na(df[[i]]))) {
-      stop("`", col_name, "` column cannot contain `NA` values", call. = FALSE)
+      stop("`", col_name, "` column must not contain `NA` values", call. = FALSE)
     }
   }
 }
