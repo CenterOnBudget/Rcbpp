@@ -19,9 +19,3 @@ A \href{https://tibble.tidyverse.org/}{tibble}.
 from the
 \href{https://www.bls.gov/cpi/research-series/r-cpi-u-rs-home.htm}{BLS website}.
 }
-\examples{
-# Load all available CPI-U-RS calendar year averages
-get_cpi_u_rs()
-# Specify a base year column
-get_cpi_u_rs(base_year = 2019)
-}
