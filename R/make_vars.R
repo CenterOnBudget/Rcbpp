@@ -31,7 +31,7 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 
   # Check args -----------------------------------------------------------------
 
-  check_args(df = df, dataset = dataset, name = name)
+  check_make_var_args(df = df, dataset = dataset, name = name)
 
   # Get dataset info -----------------------------------------------------------
 
@@ -69,7 +69,7 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 
   # Check data frame -----------------------------------------------------------
 
-  check_df(df = df, needed_vars = c(racevar, hispvar))
+  check_make_var_df(df = df, needed_vars = c(racevar, hispvar))
 
   # Make race/ethnicity var ----------------------------------------------------
 
@@ -132,7 +132,7 @@ make_age_group_var <- function(df, dataset, name = "age_group") {
 
   # Checks args ----------------------------------------------------------------
 
-  check_args(df = df, dataset = dataset, name = name)
+  check_make_var_args(df = df, dataset = dataset, name = name)
 
   # Get dataset info -----------------------------------------------------------
 
@@ -141,7 +141,7 @@ make_age_group_var <- function(df, dataset, name = "age_group") {
 
   # Check data frame -----------------------------------------------------------
 
-  check_df(df = df, needed_vars = agevar)
+  check_make_var_df(df = df, needed_vars = agevar)
 
   # Make age group var ---------------------------------------------------------
 
@@ -166,7 +166,7 @@ make_age_group_var <- function(df, dataset, name = "age_group") {
 }
 
 
-check_args <- function(df, dataset, name) {
+check_make_var_args <- function(df, dataset, name) {
   if (!is.data.frame(df)) {
     stop("`df` must be a data frame", call. = FALSE)
   }
@@ -195,7 +195,7 @@ check_args <- function(df, dataset, name) {
 }
 
 
-check_df <- function(df, needed_vars) {
+check_make_var_df <- function(df, needed_vars) {
   if (!all(needed_vars %in% names(df))) {
     stop(
       "`df` must contain the following column(s): ",
