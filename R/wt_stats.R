@@ -13,7 +13,6 @@
 NULL
 
 
-#' NULL
 #' @rdname wt_stats
 #' @export
 wt_sum <- function(x, wt) {
@@ -22,7 +21,6 @@ wt_sum <- function(x, wt) {
 }
 
 
-#' NULL
 #' @rdname wt_stats
 #' @export
 wt_mean <- function(x, wt) {
@@ -31,7 +29,6 @@ wt_mean <- function(x, wt) {
 }
 
 
-#' NULL
 #' @rdname wt_stats
 #' @export
 wt_median <- function(x, wt) {
