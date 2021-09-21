@@ -37,6 +37,10 @@ wt_mean <- function(x, wt) {
 wt_median <- function(x, wt) {
   check_wt_stat_args(x, wt)
 
+  if (any(is.na(x)) || any(is.na(wt))) {
+    return(NA)
+  }
+
   o <- order(x)
   x <- x[o]
   wt <- wt[o]
@@ -64,9 +68,5 @@ check_wt_stat_args <- function(x, wt) {
 
   if (length(x) != length(wt)) {
     stop("`x` and `wt` must be the same length", call. = FALSE)
-  }
-
-  if (any(is.na(x)) || any(is.na(wt))) {
-    stop("`x` and `wt` must not contain any `NA` values", call. = FALSE)
   }
 }
