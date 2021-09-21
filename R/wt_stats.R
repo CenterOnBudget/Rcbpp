@@ -29,6 +29,9 @@ wt_mean <- function(x, wt) {
 }
 
 
+# References:
+# https://en.wikipedia.org/wiki/Weighted_median
+# https://www.stata.com/manuals/dpctile.pdf (page 11)
 #' @rdname wt_stats
 #' @export
 wt_median <- function(x, wt) {
