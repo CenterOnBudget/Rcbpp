@@ -41,6 +41,10 @@ wt_median <- function(x, wt) {
     return(NA_integer_)
   }
 
+  if (is.logical(x)) {
+    x <- as.integer(x)
+  }
+
   o <- order(x)
   x <- x[o]
   wt <- wt[o]
