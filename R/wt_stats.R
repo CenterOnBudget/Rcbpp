@@ -38,7 +38,7 @@ wt_median <- function(x, wt) {
   check_wt_stat_args(x, wt)
 
   if (any(is.na(x)) || any(is.na(wt))) {
-    return(NA)
+    return(NA_integer_)
   }
 
   o <- order(x)
