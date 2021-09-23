@@ -4,6 +4,7 @@
 \alias{wt_stats}
 \alias{wt_sum}
 \alias{wt_mean}
+\alias{wt_quantile}
 \alias{wt_median}
 \title{Compute basic weighted statistics}
 \usage{
@@ -11,15 +12,23 @@ wt_sum(x, wt)
 
 wt_mean(x, wt)
 
+wt_quantile(x, wt, nq)
+
 wt_median(x, wt)
 }
 \arguments{
 \item{x}{A logical or numeric vector.}
 
 \item{wt}{A numeric vector of weights the same length as \code{x}.}
+
+\item{nq}{A numeric vector of length one (i.e., a number) giving the number
+of quantiles. Quantiles currently supported include the median
+(\code{nq = 2}), quartiles (\code{nq = 4}), quintiles (\code{nq = 5}),
+deciles (\code{nq = 10}), and ventiles (\code{nq = 20}).}
 }
 \value{
-A numeric vector of length one.
+A numeric vector of length one except for \code{wt_quantile()}, which
+  returns a numeric vector of length \code{nq - 1}.
 }
 \description{
 Functions for computing basic weighted statistics. These functions are

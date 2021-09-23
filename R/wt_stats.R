@@ -8,7 +8,12 @@
 #'
 #' @param x A logical or numeric vector.
 #' @param wt A numeric vector of weights the same length as \code{x}.
-#' @return A numeric vector of length one.
+#' @param nq A numeric vector of length one (i.e., a number) giving the number
+#'   of quantiles. Quantiles currently supported include the median
+#'   (\code{nq = 2}), quartiles (\code{nq = 4}), quintiles (\code{nq = 5}),
+#'   deciles (\code{nq = 10}), and ventiles (\code{nq = 20}).
+#' @return A numeric vector of length one except for \code{wt_quantile()}, which
+#'   returns a numeric vector of length \code{nq - 1}.
 #' @name wt_stats
 NULL
 
@@ -32,14 +37,28 @@ wt_mean <- function(x, wt) {
 # References:
 # https://en.wikipedia.org/wiki/Weighted_median
 # https://www.stata.com/manuals/dpctile.pdf (page 11)
+# https://www.stata.com/manuals/rsummarize.pdf (pages 9-10)
 #' @rdname wt_stats
 #' @export
-wt_median <- function(x, wt) {
+wt_quantile <- function(x, wt, nq) {
+
+  # Check args -----------------------------------------------------------------
+
   check_wt_stat_args(x, wt)
+
+  if (!is_number(nq)) {
+    stop("`nq` must be a number", call. = FALSE)
+  }
+
+  if (nq %!in% c(2, 4, 5, 10, 20)) {
+    stop("`nq` must be 2, 4, 5, 10, or 20", call. = FALSE)
+  }
 
   if (any(is.na(x)) || any(is.na(wt))) {
     return(NA_integer_)
   }
+
+  # Prep inputs ----------------------------------------------------------------
 
   if (is.logical(x)) {
     x <- as.integer(x)
@@ -51,13 +70,32 @@ wt_median <- function(x, wt) {
 
   share <- wt / sum(wt)
   cum_share <- cumsum(share)
-  k <- match(FALSE, cum_share < 0.5)
 
-  if (cum_share[k] == 0.5) {
-    (x[k] + x[k + 1]) / 2
-  } else {
-    x[k]
+  # Get quantiles --------------------------------------------------------------
+
+  q <- seq_len(nq - 1) / nq
+  output <- vector(mode = "numeric", length = length(q))
+  names(output) <- paste0(round(q * 100), "%")
+
+  for (i in seq_along(q)) {
+    k <- match(FALSE, cum_share < q[i])
+
+    if (cum_share[k] == q[i]) {
+      output[i] <- (x[k] + x[k + 1]) / 2
+    } else {
+      output[i] <- x[k]
+    }
   }
+
+  output
+}
+
+
+#' @rdname wt_stats
+#' @export
+wt_median <- function(x, wt) {
+  m <- wt_quantile(x, wt, nq = 2)
+  unname(m)
 }
 
 
