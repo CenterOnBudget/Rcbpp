@@ -42,6 +42,14 @@ wt_mean <- function(x, wt) {
 # https://en.wikipedia.org/wiki/Weighted_median
 # https://www.stata.com/manuals/dpctile.pdf (page 11)
 # https://www.stata.com/manuals/rsummarize.pdf (pages 9-10)
+
+#' @rdname wt_stats
+#' @export
+wt_median <- function(x, wt) {
+  wt_med <- wt_quantile(x, wt, nq = 2)
+  unname(wt_med)
+}
+
 #' @rdname wt_stats
 #' @export
 wt_quantile <- function(x, wt, nq) {
@@ -92,14 +100,6 @@ wt_quantile <- function(x, wt, nq) {
   }
 
   output
-}
-
-
-#' @rdname wt_stats
-#' @export
-wt_median <- function(x, wt) {
-  wt_med <- wt_quantile(x, wt, nq = 2)
-  unname(wt_med)
 }
 
 

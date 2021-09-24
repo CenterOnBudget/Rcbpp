@@ -4,17 +4,17 @@
 \alias{wt_stats}
 \alias{wt_sum}
 \alias{wt_mean}
-\alias{wt_quantile}
 \alias{wt_median}
+\alias{wt_quantile}
 \title{Compute basic weighted statistics}
 \usage{
 wt_sum(x, wt)
 
 wt_mean(x, wt)
 
-wt_quantile(x, wt, nq)
-
 wt_median(x, wt)
+
+wt_quantile(x, wt, nq)
 }
 \arguments{
 \item{x}{A logical or numeric vector.}
