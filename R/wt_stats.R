@@ -80,17 +80,18 @@ wt_quantile <- function(x, wt, nq) {
   x <- x[o]
   wt <- wt[o]
 
-  share <- wt / sum(wt)
+  share <- wt / sum(wt) # Normalize to sum to 1
   cum_share <- cumsum(share)
 
   # Get quantiles --------------------------------------------------------------
 
   q <- seq_len(nq - 1) / nq
+
   output <- vector(mode = "numeric", length = length(q))
   names(output) <- paste0(round(q * 100), "%")
 
   for (k in seq_along(q)) {
-    i <- match(TRUE, cum_share >= q[k])
+    i <- match(TRUE, cum_share >= q[k]) # First element >= q[k]
 
     if (cum_share[i] == q[k]) {
       output[k] <- (x[i] + x[i + 1]) / 2
