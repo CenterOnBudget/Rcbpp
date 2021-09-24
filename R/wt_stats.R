@@ -26,6 +26,12 @@ NULL
 #' @export
 wt_sum <- function(x, wt) {
   check_wt_stat_args(x, wt)
+
+  if (wt_stat_any_na(x, wt)) {
+    return(NA_integer_)
+  }
+
+  check_valid_wt(wt)
   sum(x * wt)
 }
 
@@ -34,6 +40,12 @@ wt_sum <- function(x, wt) {
 #' @export
 wt_mean <- function(x, wt) {
   check_wt_stat_args(x, wt)
+
+  if (wt_stat_any_na(x, wt)) {
+    return(NA_integer_)
+  }
+
+  check_valid_wt(wt)
   sum(x * wt) / sum(wt)
 }
 
@@ -66,9 +78,11 @@ wt_quantile <- function(x, wt, nq) {
     stop("`nq` must be 2, 4, 5, 10, or 20", call. = FALSE)
   }
 
-  if (any(is.na(x)) || any(is.na(wt))) {
+  if (wt_stat_any_na(x, wt)) {
     return(NA_integer_)
   }
+
+  check_valid_wt(wt)
 
   # Prep inputs ----------------------------------------------------------------
 
@@ -80,7 +94,7 @@ wt_quantile <- function(x, wt, nq) {
   x <- x[o]
   wt <- wt[o]
 
-  share <- wt / sum(wt) # Normalize to sum to 1
+  share <- wt / sum(wt)
   cum_share <- cumsum(share)
 
   # Get quantiles --------------------------------------------------------------
@@ -91,7 +105,7 @@ wt_quantile <- function(x, wt, nq) {
   names(output) <- paste0(round(q * 100), "%")
 
   for (k in seq_along(q)) {
-    i <- match(TRUE, cum_share >= q[k]) # First element >= q[k]
+    i <- match(TRUE, cum_share >= q[k])
 
     if (cum_share[i] == q[k]) {
       output[k] <- (x[i] + x[i + 1]) / 2
@@ -115,5 +129,19 @@ check_wt_stat_args <- function(x, wt) {
 
   if (length(x) != length(wt)) {
     stop("`x` and `wt` must be the same length", call. = FALSE)
+  }
+}
+
+wt_stat_any_na <- function(x, wt) {
+  any(is.na(x)) || any(is.na(wt))
+}
+
+check_valid_wt <- function(wt) {
+  if (any(wt < 0)) {
+    stop("`wt` must not contain any negative values", call. = FALSE)
+  }
+
+  if (sum(wt) == 0) {
+    stop("`wt` must not only contain values of zero", call. = FALSE)
   }
 }
