@@ -27,8 +27,12 @@ of quantiles. Quantiles currently supported include the median
 deciles (\code{nq = 10}), and ventiles (\code{nq = 20}).}
 }
 \value{
-A numeric vector of length one except for \code{wt_quantile()}, which
-  returns a numeric vector of length \code{nq - 1}.
+For all except \code{wt_quantile()}, a numeric vector of length
+  one.
+
+  For \code{wt_quantile()}, a named numeric vector of length \code{nq - 1}
+  unless any \code{NA} values are present in \code{x} or \code{wt}, in which
+  case a single \code{NA} is returned.
 }
 \description{
 Functions for computing basic weighted statistics. These functions are

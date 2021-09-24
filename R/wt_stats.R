@@ -12,8 +12,12 @@
 #'   of quantiles. Quantiles currently supported include the median
 #'   (\code{nq = 2}), quartiles (\code{nq = 4}), quintiles (\code{nq = 5}),
 #'   deciles (\code{nq = 10}), and ventiles (\code{nq = 20}).
-#' @return A numeric vector of length one except for \code{wt_quantile()}, which
-#'   returns a numeric vector of length \code{nq - 1}.
+#' @return For all except \code{wt_quantile()}, a numeric vector of length
+#'   one.
+#'
+#'   For \code{wt_quantile()}, a named numeric vector of length \code{nq - 1}
+#'   unless any \code{NA} values are present in \code{x} or \code{wt}, in which
+#'   case a single \code{NA} is returned.
 #' @name wt_stats
 NULL
 
@@ -77,13 +81,13 @@ wt_quantile <- function(x, wt, nq) {
   output <- vector(mode = "numeric", length = length(q))
   names(output) <- paste0(round(q * 100), "%")
 
-  for (i in seq_along(q)) {
-    k <- match(FALSE, cum_share < q[i])
+  for (k in seq_along(q)) {
+    i <- match(TRUE, cum_share >= q[k])
 
-    if (cum_share[k] == q[i]) {
-      output[i] <- (x[k] + x[k + 1]) / 2
+    if (cum_share[i] == q[k]) {
+      output[k] <- (x[i] + x[i + 1]) / 2
     } else {
-      output[i] <- x[k]
+      output[k] <- x[i]
     }
   }
 
@@ -94,8 +98,8 @@ wt_quantile <- function(x, wt, nq) {
 #' @rdname wt_stats
 #' @export
 wt_median <- function(x, wt) {
-  m <- wt_quantile(x, wt, nq = 2)
-  unname(m)
+  wt_med <- wt_quantile(x, wt, nq = 2)
+  unname(wt_med)
 }
 
 
