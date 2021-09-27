@@ -8,14 +8,16 @@
 #'
 #' @param x A logical or numeric vector.
 #' @param wt A numeric vector of weights the same length as \code{x}.
-#' @param nq A numeric vector of length one (i.e., a number) giving the number
-#'   of quantiles. Quantiles currently supported include the median
-#'   (\code{nq = 2}), quartiles (\code{nq = 4}), quintiles (\code{nq = 5}),
-#'   deciles (\code{nq = 10}), and ventiles (\code{nq = 20}).
+#' @param n A numeric vector of length one (i.e., a number) giving the number
+#'   of equally sized groups to split \code{x} into. Note that for \code{n}
+#'   groups, there are \code{n - 1} quantiles (i.e., cut points). Quantiles
+#'   currently supported include the median (\code{n = 2}), quartiles
+#'   (\code{n = 4}), quintiles (\code{n = 5}), deciles (\code{n = 10}), and
+#'   ventiles (\code{n = 20}).
 #' @return For all except \code{wt_quantile()}, a numeric vector of length
 #'   one.
 #'
-#'   For \code{wt_quantile()}, a named numeric vector of length \code{nq - 1}
+#'   For \code{wt_quantile()}, a named numeric vector of length \code{n - 1}
 #'   unless any \code{NA} values are present in \code{x} or \code{wt}, in which
 #'   case a single \code{NA} is returned.
 #' @name wt_stats
@@ -46,24 +48,23 @@ wt_mean <- function(x, wt) {
 #' @rdname wt_stats
 #' @export
 wt_median <- function(x, wt) {
-  wt_med <- wt_quantile(x, wt, nq = 2)
-  unname(wt_med)
+  unname(wt_quantile(x, wt, n = 2))
 }
 
 #' @rdname wt_stats
 #' @export
-wt_quantile <- function(x, wt, nq) {
+wt_quantile <- function(x, wt, n) {
 
   # Check args -----------------------------------------------------------------
 
   check_wt_stat_args(x, wt)
 
-  if (!is_number(nq)) {
-    stop("`nq` must be a number", call. = FALSE)
+  if (!is_number(n)) {
+    stop("`n` must be a number", call. = FALSE)
   }
 
-  if (nq %!in% c(2, 4, 5, 10, 20)) {
-    stop("`nq` must be 2, 4, 5, 10, or 20", call. = FALSE)
+  if (n %!in% c(2, 4, 5, 10, 20)) {
+    stop("`n` must be 2, 4, 5, 10, or 20", call. = FALSE)
   }
 
   if (any(is.na(x)) || any(is.na(wt))) {
@@ -85,7 +86,7 @@ wt_quantile <- function(x, wt, nq) {
 
   # Get quantiles --------------------------------------------------------------
 
-  q <- seq_len(nq - 1) / nq
+  q <- seq_len(n - 1) / n
 
   output <- vector(mode = "numeric", length = length(q))
   names(output) <- paste0(round(q * 100), "%")

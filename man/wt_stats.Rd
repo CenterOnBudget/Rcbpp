@@ -14,23 +14,25 @@ wt_mean(x, wt)
 
 wt_median(x, wt)
 
-wt_quantile(x, wt, nq)
+wt_quantile(x, wt, n)
 }
 \arguments{
 \item{x}{A logical or numeric vector.}
 
 \item{wt}{A numeric vector of weights the same length as \code{x}.}
 
-\item{nq}{A numeric vector of length one (i.e., a number) giving the number
-of quantiles. Quantiles currently supported include the median
-(\code{nq = 2}), quartiles (\code{nq = 4}), quintiles (\code{nq = 5}),
-deciles (\code{nq = 10}), and ventiles (\code{nq = 20}).}
+\item{n}{A numeric vector of length one (i.e., a number) giving the number
+of equally sized groups to split \code{x} into. Note that for \code{n}
+groups, there are \code{n - 1} quantiles (i.e., cut points). Quantiles
+currently supported include the median (\code{n = 2}), quartiles
+(\code{n = 4}), quintiles (\code{n = 5}), deciles (\code{n = 10}), and
+ventiles (\code{n = 20}).}
 }
 \value{
 For all except \code{wt_quantile()}, a numeric vector of length
   one.
 
-  For \code{wt_quantile()}, a named numeric vector of length \code{nq - 1}
+  For \code{wt_quantile()}, a named numeric vector of length \code{n - 1}
   unless any \code{NA} values are present in \code{x} or \code{wt}, in which
   case a single \code{NA} is returned.
 }
