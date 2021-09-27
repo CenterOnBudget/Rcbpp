@@ -26,12 +26,6 @@ NULL
 #' @export
 wt_sum <- function(x, wt) {
   check_wt_stat_args(x, wt)
-
-  if (wt_stat_any_na(x, wt)) {
-    return(NA_integer_)
-  }
-
-  check_valid_wt(wt)
   sum(x * wt)
 }
 
@@ -40,12 +34,6 @@ wt_sum <- function(x, wt) {
 #' @export
 wt_mean <- function(x, wt) {
   check_wt_stat_args(x, wt)
-
-  if (wt_stat_any_na(x, wt)) {
-    return(NA_integer_)
-  }
-
-  check_valid_wt(wt)
   sum(x * wt) / sum(wt)
 }
 
@@ -78,11 +66,9 @@ wt_quantile <- function(x, wt, nq) {
     stop("`nq` must be 2, 4, 5, 10, or 20", call. = FALSE)
   }
 
-  if (wt_stat_any_na(x, wt)) {
+  if (any(is.na(x)) || any(is.na(wt))) {
     return(NA_integer_)
   }
-
-  check_valid_wt(wt)
 
   # Prep inputs ----------------------------------------------------------------
 
@@ -129,19 +115,5 @@ check_wt_stat_args <- function(x, wt) {
 
   if (length(x) != length(wt)) {
     stop("`x` and `wt` must be the same length", call. = FALSE)
-  }
-}
-
-wt_stat_any_na <- function(x, wt) {
-  any(is.na(x)) || any(is.na(wt))
-}
-
-check_valid_wt <- function(wt) {
-  if (any(wt < 0)) {
-    stop("`wt` must not contain any negative values", call. = FALSE)
-  }
-
-  if (sum(wt) == 0) {
-    stop("`wt` must not only contain values of zero", call. = FALSE)
   }
 }
