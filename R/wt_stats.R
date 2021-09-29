@@ -93,8 +93,9 @@ wt_quantile <- function(x, wt, n) {
     x <- as.integer(x)
   }
 
-  if (any(wt == 0)) {
-    z <- wt == 0
+  z <- wt == 0
+
+  if (any(z)) {
     x <- x[!z]
     wt <- wt[!z]
   }
