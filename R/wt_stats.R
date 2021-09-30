@@ -35,7 +35,7 @@ NULL
 wt_sum <- function(x, wt) {
   check <- check_wt_stat_args(x, wt)
 
-  if (!is.null(check)) {
+  if (is.na(check)) {
     return(check)
   }
 
@@ -48,7 +48,7 @@ wt_sum <- function(x, wt) {
 wt_mean <- function(x, wt) {
   check <- check_wt_stat_args(x, wt)
 
-  if (!is.null(check)) {
+  if (is.na(check)) {
     return(check)
   }
 
@@ -83,7 +83,7 @@ wt_quantile <- function(x, wt, n) {
     stop("`n` must be 2, 4, 5, 10, or 20", call. = FALSE)
   }
 
-  if (!is.null(check)) {
+  if (is.na(check)) {
     return(check)
   }
 
@@ -153,5 +153,5 @@ check_wt_stat_args <- function(x, wt) {
     stop("`wt` must not only contain values of zero", call. = FALSE)
   }
 
-  invisible(NULL)
+  integer(1L)
 }
