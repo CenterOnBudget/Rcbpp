@@ -153,5 +153,5 @@ check_wt_stat_args <- function(x, wt) {
     stop("`wt` must not only contain values of zero", call. = FALSE)
   }
 
-  integer(1L)
+  0L
 }
