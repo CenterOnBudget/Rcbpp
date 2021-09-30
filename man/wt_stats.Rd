@@ -34,10 +34,17 @@ For all except \code{wt_quantile()}, a numeric vector of length
 
   For \code{wt_quantile()}, a named numeric vector of length \code{n - 1}
   unless any \code{NA} values are present in \code{x} or \code{wt}, in which
-  case a single \code{NA} is returned.
+  case a numeric vector of length one (containing \code{NA}) is returned.
 }
 \description{
 Functions for computing basic weighted statistics. These functions are
 designed to be strict, consistent, and useful within
 \code{dplyr::summarize()}.
+}
+\details{
+If any \code{NA} values are present in \code{x} or \code{wt}, these functions
+will return \code{NA}.
+
+\code{wt} must not contain any negative values. \code{wt} may contain values
+of zero but must not only contain values of zero.
 }

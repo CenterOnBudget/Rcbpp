@@ -6,6 +6,12 @@
 #' designed to be strict, consistent, and useful within
 #' \code{dplyr::summarize()}.
 #'
+#' If any \code{NA} values are present in \code{x} or \code{wt}, these functions
+#' will return \code{NA}.
+#'
+#' \code{wt} must not contain any negative values. \code{wt} may contain values
+#' of zero but must not only contain values of zero.
+#'
 #' @param x A logical or numeric vector.
 #' @param wt A numeric vector of weights the same length as \code{x}.
 #' @param n A numeric vector of length one (i.e., a number) giving the number
@@ -19,7 +25,7 @@
 #'
 #'   For \code{wt_quantile()}, a named numeric vector of length \code{n - 1}
 #'   unless any \code{NA} values are present in \code{x} or \code{wt}, in which
-#'   case a single \code{NA} is returned.
+#'   case a numeric vector of length one (containing \code{NA}) is returned.
 #' @name wt_stats
 NULL
 
@@ -27,7 +33,12 @@ NULL
 #' @rdname wt_stats
 #' @export
 wt_sum <- function(x, wt) {
-  check_wt_stat_args(x, wt)
+  check <- check_wt_stat_args(x, wt)
+
+  if (is.na(check)) {
+    return(check)
+  }
+
   sum(x * wt)
 }
 
@@ -35,7 +46,12 @@ wt_sum <- function(x, wt) {
 #' @rdname wt_stats
 #' @export
 wt_mean <- function(x, wt) {
-  check_wt_stat_args(x, wt)
+  check <- check_wt_stat_args(x, wt)
+
+  if (is.na(check)) {
+    return(check)
+  }
+
   sum(x * wt) / sum(wt)
 }
 
@@ -57,7 +73,7 @@ wt_quantile <- function(x, wt, n) {
 
   # Check args -----------------------------------------------------------------
 
-  check_wt_stat_args(x, wt)
+  check <- check_wt_stat_args(x, wt)
 
   if (!is_number(n)) {
     stop("`n` must be a number", call. = FALSE)
@@ -67,14 +83,21 @@ wt_quantile <- function(x, wt, n) {
     stop("`n` must be 2, 4, 5, 10, or 20", call. = FALSE)
   }
 
-  if (any(is.na(x)) || any(is.na(wt))) {
-    return(NA_integer_)
+  if (is.na(check)) {
+    return(check)
   }
 
   # Prep inputs ----------------------------------------------------------------
 
   if (is.logical(x)) {
     x <- as.integer(x)
+  }
+
+  z <- wt == 0
+
+  if (any(z)) {
+    x <- x[!z]
+    wt <- wt[!z]
   }
 
   o <- order(x)
@@ -117,4 +140,18 @@ check_wt_stat_args <- function(x, wt) {
   if (length(x) != length(wt)) {
     stop("`x` and `wt` must be the same length", call. = FALSE)
   }
+
+  if (any(is.na(x)) || any(is.na(wt))) {
+    return(NA_integer_)
+  }
+
+  if (any(wt < 0)) {
+    stop("`wt` must not contain any negative values", call. = FALSE)
+  }
+
+  if (sum(wt) == 0) {
+    stop("`wt` must not only contain values of zero", call. = FALSE)
+  }
+
+  0L
 }
