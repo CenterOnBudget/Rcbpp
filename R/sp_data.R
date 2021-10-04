@@ -7,9 +7,9 @@
 #'
 #' This function creates one or more file paths based on the user's path to
 #' the SharePoint datasets library (accessed via environment variable
-#' \code{spdatapath}) and the basic directory structure and file naming
-#' conventions of each dataset library. Note that in order to obtain results
-#' from this function, the specified files must actually exist.
+#' \code{spdatapath}) and the directory structure and file naming convention of
+#' each dataset library. Note that in order to obtain results from this
+#' function, the specified files must actually exist.
 #'
 #' @param dataset Dataset to build file paths for. One of \code{"acs"},
 #'   \code{"cps_asec"}, or \code{"cps_basic"}.
