@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_vars.R
 \name{make_race_eth_var}
 \alias{make_race_eth_var}
-\title{Make race/ethnicity variable}
+\title{Make a race/ethnicity variable}
 \usage{
 make_race_eth_var(df, dataset, name = "race_eth")
 }
@@ -35,7 +35,7 @@ supported and required variables are \code{ptdtrace} and \code{pehspnon}.
 
 This function is designed to work with original, Census-based ACS or CPS
 microdata. (As opposed to Census microdata that have been processed by, for
-examples, IPUMS.) Therefore, prior to using this function, you should ensure
+example, IPUMS.) Therefore, prior to using this function you should ensure
 that your data are behaving according to their official data dictionary.
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_vars.R
 \name{make_age_group_var}
 \alias{make_age_group_var}
-\title{Make age group variable}
+\title{Make an age group variable}
 \usage{
 make_age_group_var(df, dataset, name = "age_group")
 }
@@ -32,7 +32,7 @@ and the required variable is \code{a_age}. For the basic monthly CPS, years
 
 This function is designed to work with original, Census-based ACS or CPS
 microdata. (As opposed to Census microdata that have been processed by, for
-examples, IPUMS.) Therefore, prior to using this function, you should ensure
+example, IPUMS.) Therefore, prior to using this function you should ensure
 that your data are behaving according to their official data dictionary.
 }
 
