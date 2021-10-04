@@ -2,6 +2,7 @@
 
 export(make_age_group_var)
 export(make_race_eth_var)
+export(sp_data)
 export(wt_mean)
 export(wt_median)
 export(wt_quantile)
