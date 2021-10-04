@@ -18,7 +18,7 @@
 #' @param y One or more years.
 #' @param m One or more months (specified numerically). Only applicable if
 #'   \code{dataset} is \code{"cps_basic"}.
-#' @param f Data format. One of \code{"csv"} or \code{"dta"}.
+#' @param f Format of data. One of \code{"csv"} or \code{"dta"}.
 #' @export
 sp_data <- function(dataset, y, m = NULL, f) {
 

@@ -15,7 +15,7 @@ sp_data(dataset, y, m = NULL, f)
 \item{m}{One or more months (specified numerically). Only applicable if
 \code{dataset} is \code{"cps_basic"}.}
 
-\item{f}{Data format. One of \code{"csv"} or \code{"dta"}.}
+\item{f}{Format of data. One of \code{"csv"} or \code{"dta"}.}
 }
 \description{
 \code{sp_data()} provides a compact way of creating paths to files in the
