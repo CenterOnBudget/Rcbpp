@@ -3,15 +3,13 @@
 #' Create paths to files in the SharePoint datasets library
 #'
 #' \code{sp_data()} provides a compact way of creating paths to files in the
-#' SharePoint datasets library. This is a convenience function that will be
-#' most useful in combination with functions like \code{readr::read_csv()},
-#' \code{haven::read_dta()}, and \code{purrr::map()}.
+#' SharePoint datasets library.
 #'
 #' This function creates one or more file paths based on the user's path to
 #' the SharePoint datasets library (accessed via environment variable
 #' \code{spdatapath}) and the basic directory structure and file naming
-#' conventions of each dataset library. This function does not itself verify
-#' whether the resulting files actually exist.
+#' conventions of each dataset library. Note that in order to obtain results
+#' from this function, the specified files must actually exist.
 #'
 #' @param dataset Dataset to build file paths for. One of \code{"acs"},
 #'   \code{"cps_asec"}, or \code{"cps_basic"}.
@@ -19,6 +17,8 @@
 #' @param m One or more months (specified numerically). Only applicable if
 #'   \code{dataset} is \code{"cps_basic"}.
 #' @param f Format of data. One of \code{"csv"} or \code{"dta"}.
+#' @return A character vector containing the created file paths.
+#'
 #' @export
 sp_data <- function(dataset, y, m = NULL, f) {
 
@@ -74,13 +74,23 @@ sp_data <- function(dataset, y, m = NULL, f) {
   f <- paste0(".", f)
 
   if (dataset == "cps_asec") {
-    paste0(path, "CPS/mar", y, "/mar", y, f)
+    fp <- paste0(path, "CPS/mar", y, "/mar", y, f)
   } else if (dataset == "cps_basic") {
     df <- expand.grid(m = m, y = y)
     df$y_sub <- substr(df$y, 3, 4)
     df$m_abb <- tolower(month.abb)[df$m]
-    paste0(path, "CPS-BASIC/", df$y, "/", df$m_abb, df$y_sub, "pub", f)
+    fp <- paste0(path, "CPS-BASIC/", df$y, "/", df$m_abb, df$y_sub, "pub", f)
   } else {
-    paste0(path, "ACS/", y, "/", y, "us", f)
+    fp <- paste0(path, "ACS/", y, "/", y, "us", f)
   }
+
+  # Check files ----------------------------------------------------------------
+
+  if (!all(file.exists(fp))) {
+    stop("One or more of the specified files do not exist", call. = FALSE)
+  }
+
+  # Return file paths ----------------------------------------------------------
+
+  fp
 }

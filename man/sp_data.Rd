@@ -17,16 +17,17 @@ sp_data(dataset, y, m = NULL, f)
 
 \item{f}{Format of data. One of \code{"csv"} or \code{"dta"}.}
 }
+\value{
+A character vector containing the created file paths.
+}
 \description{
 \code{sp_data()} provides a compact way of creating paths to files in the
-SharePoint datasets library. This is a convenience function that will be
-most useful in combination with functions like \code{readr::read_csv()},
-\code{haven::read_dta()}, and \code{purrr::map()}.
+SharePoint datasets library.
 }
 \details{
 This function creates one or more file paths based on the user's path to
 the SharePoint datasets library (accessed via environment variable
 \code{spdatapath}) and the basic directory structure and file naming
-conventions of each dataset library. This function does not itself verify
-whether the resulting files actually exist.
+conventions of each dataset library. Note that in order to obtain results
+from this function, the specified files must actually exist.
 }
