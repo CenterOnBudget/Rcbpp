@@ -57,7 +57,7 @@ sp_data <- function(dataset, y, m = NULL, f) {
     }
   } else {
     if (!is.null(m)) {
-      warning('`m` is only applicable when `dataset` is "cps_basic"', call = FALSE)
+      stop('`m` is only applicable if `dataset` is "cps_basic"', call. = FALSE)
     }
   }
 
