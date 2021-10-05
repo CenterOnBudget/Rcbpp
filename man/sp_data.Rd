@@ -28,6 +28,6 @@ SharePoint datasets library.
 This function creates one or more file paths based on the user's path to
 the SharePoint datasets library (accessed via environment variable
 \code{spdatapath}) and the directory structure and file naming convention of
-each dataset library. Note that in order to obtain results from this
-function, the specified files must actually exist.
+each dataset library. This function does not itself verify whether the
+resulting files actually exist.
 }

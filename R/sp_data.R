@@ -8,8 +8,8 @@
 #' This function creates one or more file paths based on the user's path to
 #' the SharePoint datasets library (accessed via environment variable
 #' \code{spdatapath}) and the directory structure and file naming convention of
-#' each dataset library. Note that in order to obtain results from this
-#' function, the specified files must actually exist.
+#' each dataset library. This function does not itself verify whether the
+#' resulting files actually exist.
 #'
 #' @param dataset Dataset to build file paths for. One of \code{"acs"},
 #'   \code{"cps_asec"}, or \code{"cps_basic"}.
@@ -74,23 +74,13 @@ sp_data <- function(dataset, y, m = NULL, f) {
   f <- paste0(".", f)
 
   if (dataset == "cps_asec") {
-    fp <- paste0(path, "CPS/mar", y, "/mar", y, f)
+    paste0(path, "CPS/mar", y, "/mar", y, f)
   } else if (dataset == "cps_basic") {
     df <- expand.grid(m = m, y = y)
     df$y_sub <- substr(df$y, 3, 4)
     df$m_abb <- tolower(month.abb)[df$m]
-    fp <- paste0(path, "CPS-BASIC/", df$y, "/", df$m_abb, df$y_sub, "pub", f)
+    paste0(path, "CPS-BASIC/", df$y, "/", df$m_abb, df$y_sub, "pub", f)
   } else {
-    fp <- paste0(path, "ACS/", y, "/", y, "us", f)
+    paste0(path, "ACS/", y, "/", y, "us", f)
   }
-
-  # Check files ----------------------------------------------------------------
-
-  if (!all(file.exists(fp))) {
-    stop("One or more of the specified files do not exist", call. = FALSE)
-  }
-
-  # Return file paths ----------------------------------------------------------
-
-  fp
 }
