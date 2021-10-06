@@ -2,32 +2,35 @@
 % Please edit documentation in R/sp_data.R
 \name{sp_data}
 \alias{sp_data}
+\alias{sp_acs}
+\alias{sp_cps_asec}
+\alias{sp_cps_basic}
 \title{Create paths to files in the SharePoint datasets library}
 \usage{
-sp_data(dataset, y, m = NULL, f)
+sp_acs(y, f)
+
+sp_cps_asec(y, f)
+
+sp_cps_basic(y, m, f)
 }
 \arguments{
-\item{dataset}{Dataset to build file paths for. One of \code{"acs"},
-\code{"cps_asec"}, or \code{"cps_basic"}.}
-
 \item{y}{One or more years.}
 
-\item{m}{One or more months (specified numerically). Only applicable if
-\code{dataset} is \code{"cps_basic"}.}
-
 \item{f}{Format of data. One of \code{"csv"} or \code{"dta"}.}
+
+\item{m}{One or more months (specified numerically).}
 }
 \value{
 A character vector containing the created file paths.
 }
 \description{
-\code{sp_data()} provides a compact way of creating paths to files in the
-SharePoint datasets library.
+Functions for creating paths to files in the SharePoint datasets library.
+These functions are designed to be simple and compact.
 }
 \details{
-This function creates one or more file paths based on the user's path to
+These functions create one or more file paths based on the user's path to
 the SharePoint datasets library (accessed via environment variable
 \code{spdatapath}) and the directory structure and file naming convention of
-each dataset library. This function does not itself verify whether the
-resulting files actually exist.
+each dataset library. These functions do not verify whether the resulting
+files actually exist.
 }
