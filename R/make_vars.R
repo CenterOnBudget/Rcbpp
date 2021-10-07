@@ -1,6 +1,6 @@
 
 
-#' Make race/ethnicity variable
+#' Make a race/ethnicity variable
 #'
 #' \code{make_race_eth_var()} creates a 5-level race/ethnicity variable in ACS,
 #' CPS ASEC, or basic monthly CPS microdata. Levels include white only, not
@@ -16,7 +16,7 @@
 #' @section Warning:
 #' This function is designed to work with original, Census-based ACS or CPS
 #' microdata. (As opposed to Census microdata that have been processed by, for
-#' examples, IPUMS.) Therefore, prior to using this function, you should ensure
+#' example, IPUMS.) Therefore, prior to using this function you should ensure
 #' that your data are behaving according to their official data dictionary.
 #'
 #' @param df Data frame to add race/ethnicity variable to.
@@ -109,7 +109,7 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 }
 
 
-#' Make age group variable
+#' Make an age group variable
 #'
 #' \code{make_age_group_var()} creates a 3-level age group variable in ACS,
 #' CPS ASEC, or basic monthly CPS microdata. Levels include under 18, 18 to 64,
@@ -214,7 +214,7 @@ check_make_var_df <- function(df, needed_vars) {
     }
 
     if (any(is.na(df[[i]]))) {
-      stop("`", col_name, "` column must not contain `NA` values", call. = FALSE)
+      stop("`", col_name, "` column must not contain any `NA` values", call. = FALSE)
     }
   }
 }

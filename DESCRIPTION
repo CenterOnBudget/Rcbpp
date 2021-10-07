@@ -1,6 +1,6 @@
 Package: Rcbpp
 Title: R Utilities for CBPP Research
-Version: 0.7.1
+Version: 0.8.0
 Authors@R: person(
   given = "Matt",
   family = "Saenz",
@@ -10,6 +10,6 @@ Description: R utilities to streamline CBPP research.
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Depends: 
     R (>= 2.10)
