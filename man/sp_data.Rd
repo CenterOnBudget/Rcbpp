@@ -30,7 +30,7 @@ These functions are designed to be simple and compact.
 \details{
 These functions create one or more file paths based on the user's path to
 the SharePoint datasets library (accessed via environment variable
-\code{spdatapath}) and the directory structure and file naming convention of
-each dataset library. These functions do not verify whether the resulting
+\code{SP_DATA_PATH}) and the directory structure and file naming convention
+of each dataset library. These functions do not verify whether the resulting
 files actually exist.
 }

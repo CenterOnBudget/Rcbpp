@@ -7,8 +7,8 @@
 #'
 #' These functions create one or more file paths based on the user's path to
 #' the SharePoint datasets library (accessed via environment variable
-#' \code{spdatapath}) and the directory structure and file naming convention of
-#' each dataset library. These functions do not verify whether the resulting
+#' \code{SP_DATA_PATH}) and the directory structure and file naming convention
+#' of each dataset library. These functions do not verify whether the resulting
 #' files actually exist.
 #'
 #' @param y One or more years.
@@ -65,11 +65,11 @@ sp_cps_basic <- function(y, m, f) {
 
 
 get_spdatapath <- function() {
-  path <- Sys.getenv("spdatapath")
+  path <- Sys.getenv("SP_DATA_PATH")
 
   if (path == "") {
     stop(
-      "Path to SharePoint datasets library not found, supply with env var `spdatapath`",
+      "Path to SharePoint datasets library not found, supply with env var `SP_DATA_PATH`",
       call. = FALSE
     )
   }
