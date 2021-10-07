@@ -22,7 +22,7 @@ NULL
 #' @rdname sp_data
 #' @export
 sp_acs <- function(y, f) {
-  path <- get_spdatapath()
+  path <- get_sp_data_path()
 
   check_y(y)
   check_f(f)
@@ -34,7 +34,7 @@ sp_acs <- function(y, f) {
 #' @rdname sp_data
 #' @export
 sp_cps_asec <- function(y, f) {
-  path <- get_spdatapath()
+  path <- get_sp_data_path()
 
   check_y(y)
   check_f(f)
@@ -46,7 +46,7 @@ sp_cps_asec <- function(y, f) {
 #' @rdname sp_data
 #' @export
 sp_cps_basic <- function(y, m, f) {
-  path <- get_spdatapath()
+  path <- get_sp_data_path()
 
   check_y(y)
 
@@ -64,7 +64,7 @@ sp_cps_basic <- function(y, m, f) {
 }
 
 
-get_spdatapath <- function() {
+get_sp_data_path <- function() {
   path <- Sys.getenv("SP_DATA_PATH")
 
   if (path == "") {
