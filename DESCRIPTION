@@ -1,6 +1,6 @@
 Package: Rcbpp
 Title: R Utilities for CBPP Research
-Version: 0.8.1
+Version: 0.8.2
 Authors@R: person(
   given = "Matt",
   family = "Saenz",
