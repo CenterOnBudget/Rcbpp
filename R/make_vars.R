@@ -188,7 +188,7 @@ check_make_var_args <- function(df, dataset, name) {
 
   if (name %in% names(df)) {
     stop(
-      "Invalid `name`, `df` already contains `", name, "` column",
+      "Invalid `name`, `df` already contains a `", name, "` column",
       call. = FALSE
     )
   }
@@ -211,11 +211,11 @@ check_make_var_df <- function(df, needed_vars) {
     col_name <- names(df)[i]
 
     if (!is.numeric(col)) {
-      stop("`", col_name, "` column must be numeric", call. = FALSE)
+      stop("Column `", col_name, "` must be numeric", call. = FALSE)
     }
 
     if (any(is.na(col))) {
-      stop("`", col_name, "` column must not contain any `NA` values", call. = FALSE)
+      stop("Column `", col_name, "` must not contain any `NA` values", call. = FALSE)
     }
   }
 }
