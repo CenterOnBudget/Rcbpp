@@ -207,13 +207,14 @@ check_make_var_df <- function(df, needed_vars) {
   df <- df[, needed_vars, drop = FALSE]
 
   for (i in seq_along(df)) {
+    col <- df[[i]]
     col_name <- names(df)[i]
 
-    if (!is.numeric(df[[i]])) {
+    if (!is.numeric(col)) {
       stop("`", col_name, "` column must be numeric", call. = FALSE)
     }
 
-    if (any(is.na(df[[i]]))) {
+    if (any(is.na(col))) {
       stop("`", col_name, "` column must not contain any `NA` values", call. = FALSE)
     }
   }
