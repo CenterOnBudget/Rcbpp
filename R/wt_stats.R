@@ -109,22 +109,25 @@ wt_quantile <- function(x, wt, n) {
 
   # Get quantiles --------------------------------------------------------------
 
-  q <- seq_len(n - 1) / n
+  probs <- seq_len(n - 1) / n
 
-  output <- vector(mode = "numeric", length = length(q))
-  names(output) <- paste0(round(q * 100), "%")
+  q <- vector(mode = "numeric", length = length(probs))
+  names(q) <- paste0(round(probs * 100), "%")
 
-  for (k in seq_along(q)) {
-    i <- match(TRUE, cum_share >= q[k])
+  for (k in seq_along(probs)) {
+    prob <- probs[k]
+    i <- match(TRUE, cum_share >= prob)
 
-    if (cum_share[i] == q[k]) {
-      output[k] <- (x[i] + x[i + 1]) / 2
+    if (cum_share[i] == prob) {
+      q[k] <- (x[i] + x[i + 1]) / 2
     } else {
-      output[k] <- x[i]
+      q[k] <- x[i]
     }
   }
 
-  output
+  # Return quantiles -----------------------------------------------------------
+
+  q
 }
 
 
