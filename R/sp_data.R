@@ -76,10 +76,10 @@ sp_cps_basic <- function(y, m, f) {
 #'
 #' This function comes in handy when you want to create one or more file paths
 #' for a dataset that is used infrequently or that does not yet have an
-#' \code{\link{sp_data}} function.
+#' \link{sp_data} function.
 #'
 #' @return A character vector of length one.
-#' @seealso \code{\link{sp_data}} for functions for creating paths to files in
+#' @seealso \link{sp_data} for functions for creating paths to files in
 #'   the SharePoint datasets library.
 #'
 #' @export
