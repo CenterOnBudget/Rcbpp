@@ -2,6 +2,7 @@
 
 export(make_age_group_var)
 export(make_race_eth_var)
+export(make_sp_data_path)
 export(sp_acs)
 export(sp_cps_asec)
 export(sp_cps_basic)
