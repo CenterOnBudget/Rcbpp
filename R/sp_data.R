@@ -86,9 +86,14 @@ sp_cps_basic <- function(y, m, f) {
 make_sp_data_path <- function() {
   sys_info <- Sys.info()
 
+  if (sys_info["sysname"] == "Windows") {
+    root <- "C:/"
+  } else {
+    root <- "/"
+  }
+
   paste0(
-    if (sys_info["sysname"] == "Windows") "C:",
-    "/Users/", sys_info["user"],
+    root, "Users/", sys_info["user"],
     "/Center on Budget and Policy Priorities/Datasets - "
   )
 }
