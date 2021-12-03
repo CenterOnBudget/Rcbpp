@@ -11,10 +11,10 @@
 #' More specifically, \code{zap_stata()}:
 #'
 #' \itemize{
-#'   \item Removes any value labels and converts any tagged missing values to \code{NA}
-#'   \item Removes any variable labels or formats
-#'   \item Removes the dataset label
-#'   \item Removes any dataset notes
+#'   \item Removes any value labels and converts any tagged missing values to \code{NA}.
+#'   \item Removes any variable labels or formats.
+#'   \item Removes the dataset label.
+#'   \item Removes any dataset notes.
 #' }
 #'
 #' @param df A data frame.
