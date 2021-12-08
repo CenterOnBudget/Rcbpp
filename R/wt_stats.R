@@ -33,10 +33,10 @@ NULL
 #' @rdname wt_stats
 #' @export
 wt_sum <- function(x, wt) {
-  check <- check_wt_stat_args(x, wt)
+  dry_run <- wt_stat_dry_run(x, wt)
 
-  if (is.na(check)) {
-    return(check)
+  if (is.na(dry_run)) {
+    return(dry_run)
   }
 
   sum(x * wt)
@@ -46,10 +46,10 @@ wt_sum <- function(x, wt) {
 #' @rdname wt_stats
 #' @export
 wt_mean <- function(x, wt) {
-  check <- check_wt_stat_args(x, wt)
+  dry_run <- wt_stat_dry_run(x, wt)
 
-  if (is.na(check)) {
-    return(check)
+  if (is.na(dry_run)) {
+    return(dry_run)
   }
 
   sum(x * wt) / sum(wt)
@@ -73,7 +73,7 @@ wt_quantile <- function(x, wt, n) {
 
   # Check args -----------------------------------------------------------------
 
-  check <- check_wt_stat_args(x, wt)
+  dry_run <- wt_stat_dry_run(x, wt)
 
   if (!is_number(n)) {
     stop("`n` must be a number", call. = FALSE)
@@ -83,8 +83,8 @@ wt_quantile <- function(x, wt, n) {
     stop("`n` must be 2, 4, 5, 10, or 20", call. = FALSE)
   }
 
-  if (is.na(check)) {
-    return(check)
+  if (is.na(dry_run)) {
+    return(dry_run)
   }
 
   # Prep inputs ----------------------------------------------------------------
@@ -131,7 +131,7 @@ wt_quantile <- function(x, wt, n) {
 }
 
 
-check_wt_stat_args <- function(x, wt) {
+wt_stat_dry_run <- function(x, wt) {
   if (!is.logical(x) && !is.numeric(x)) {
     stop("`x` must be a logical or numeric vector", call. = FALSE)
   }
@@ -156,5 +156,5 @@ check_wt_stat_args <- function(x, wt) {
     stop("`wt` must not only contain values of zero", call. = FALSE)
   }
 
-  0L
+  0L # Arbitrary non-`NA` integer
 }
