@@ -18,7 +18,7 @@
 #'
 #' @param y One or more years.
 #' @param m One or more months (specified numerically).
-#' @param f Format of data. One of \code{"csv"} or \code{"dta"}.
+#' @param f Format of data. One of \code{"csv"}, \code{"dta"}, or \code{"parquet"}.
 #' @return A character vector containing the created file paths.
 #' @seealso \code{\link[=make_sp_data_path]{make_sp_data_path()}} to get your
 #'   basic path to the SharePoint datasets library.
@@ -33,6 +33,10 @@ sp_acs <- function(y, f) {
   check_y(y)
   check_f(f)
 
+  if (f == "csv") {
+    stop('"csv" file does not exist', call. = FALSE)
+  }
+
   path <- make_sp_data_path()
   paste0(path, "ACS/", y, "/", y, "us", ".", f)
 }
@@ -43,6 +47,10 @@ sp_acs <- function(y, f) {
 sp_cps_asec <- function(y, f) {
   check_y(y)
   check_f(f)
+
+  if (f == "parquet") {
+    stop('"parquet" file does not exist', call. = FALSE)
+  }
 
   path <- make_sp_data_path()
   paste0(path, "CPS/mar", y, "/mar", y, ".", f)
@@ -59,6 +67,10 @@ sp_cps_basic <- function(y, m, f) {
   }
 
   check_f(f)
+
+  if (f == "parquet") {
+    stop('"parquet" file does not exist', call. = FALSE)
+  }
 
   df <- expand.grid(m = m, y = y)
   df$y_sub <- substr(df$y, 3, 4)
@@ -105,12 +117,14 @@ check_y <- function(y) {
   }
 }
 
+
 check_f <- function(f) {
   if (!is_string(f)) {
     stop("`f` must be a string", call. = FALSE)
   }
 
-  if (f %!in% c("csv", "dta")) {
-    stop('`f` must be one of "csv" or "dta"', call. = FALSE)
+  if (f %!in% c("csv", "dta", "parquet")) {
+    stop('`f` must be one of "csv", "dta", or "parquet"', call. = FALSE)
   }
 }
+

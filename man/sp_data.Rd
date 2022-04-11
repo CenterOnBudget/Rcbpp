@@ -16,7 +16,7 @@ sp_cps_basic(y, m, f)
 \arguments{
 \item{y}{One or more years.}
 
-\item{f}{Format of data. One of \code{"csv"} or \code{"dta"}.}
+\item{f}{Format of data. One of \code{"csv"}, \code{"dta"}, or \code{"parquet"}.}
 
 \item{m}{One or more months (specified numerically).}
 }
