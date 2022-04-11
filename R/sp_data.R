@@ -33,7 +33,7 @@ sp_acs <- function(y, f) {
   check_y(y)
   check_f(f)
 
-  if (f %in% "csv") {
+  if (f == "csv") {
     stop('"csv" file does not exist', call. = FALSE)
   }
 
@@ -48,7 +48,7 @@ sp_cps_asec <- function(y, f) {
   check_y(y)
   check_f(f)
 
-  if (f %in% "parquet") {
+  if (f == "parquet") {
     stop('"parquet" file does not exist', call. = FALSE)
   }
 
@@ -68,7 +68,7 @@ sp_cps_basic <- function(y, m, f) {
 
   check_f(f)
 
-  if (f %in% "parquet") {
+  if (f == "parquet") {
     stop('"parquet" file does not exist', call. = FALSE)
   }
 
