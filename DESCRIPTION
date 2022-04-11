@@ -1,11 +1,17 @@
 Package: Rcbpp
 Title: R Utilities for CBPP Research
-Version: 0.9.2
-Authors@R: person(
-  given = "Matt",
-  family = "Saenz",
-  email = "vsaenz@cbpp.org",
-  role = c("aut", "cre"))
+Version: 0.9.3
+Authors@R: c(
+  person(
+    given = "Matt",
+    family = "Saenz",
+    email = "vsaenz@cbpp.org",
+    role = c("aut", "cre")),
+  person(
+    given = "Luis",
+    family = "Nuñez",
+    email = "lnunez@cbpp.org",
+    role = "ctb"))
 Description: R utilities to streamline CBPP research.
 License: file LICENSE
 Encoding: UTF-8
