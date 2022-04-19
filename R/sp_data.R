@@ -7,20 +7,20 @@
 #'
 #' These functions create one or more file paths based on the user's path to
 #' the SharePoint datasets library (as created by
-#' \code{\link[=make_sp_data_path]{make_sp_data_path()}}) and the directory
+#' [make_sp_data_path()] and the directory
 #' structure and file naming convention of each dataset library. These functions
 #' do not verify whether the resulting files actually exist.
 #'
 #' @section Requesting a function:
-#' If you'd like to request an \code{sp_*()} function for a dataset you use
+#' If you'd like to request an `sp_*()` function for a dataset you use
 #' frequently, please file an
-#' \href{https://github.com/CenterOnBudget/Rcbpp/issues}{issue} on GitHub.
+#' [issue](https://github.com/CenterOnBudget/Rcbpp/issues) on GitHub.
 #'
 #' @param y One or more years.
 #' @param m One or more months (specified numerically).
-#' @param f Format of data. One of \code{"csv"}, \code{"dta"}, or \code{"parquet"}.
+#' @param f Format of data. One of `"csv"`, `"dta"`, or `"parquet"`.
 #' @return A character vector containing the created file paths.
-#' @seealso \code{\link[=make_sp_data_path]{make_sp_data_path()}} to get your
+#' @seealso [make_sp_data_path()] to get your
 #'   basic path to the SharePoint datasets library.
 #'
 #' @name sp_data
@@ -83,15 +83,15 @@ sp_cps_basic <- function(y, m, f) {
 
 #' Create a path to the SharePoint datasets library
 #'
-#' \code{make_sp_data_path()} creates a path to the SharePoint datasets library
+#' `make_sp_data_path()` creates a path to the SharePoint datasets library
 #' for the user.
 #'
 #' This function comes in handy when you want to create one or more file paths
 #' for a dataset that is used infrequently or that does not yet have an
-#' \link{sp_data} function.
+#' [`sp_data`] function.
 #'
 #' @return A character vector of length one.
-#' @seealso \link{sp_data} for functions for creating paths to files in
+#' @seealso [`sp_data`] for functions for creating paths to files in
 #'   the SharePoint datasets library.
 #'
 #' @export

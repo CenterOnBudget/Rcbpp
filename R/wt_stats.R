@@ -4,28 +4,28 @@
 #'
 #' Functions for computing basic weighted statistics. These functions are
 #' designed to be strict, consistent, and useful within
-#' \code{dplyr::summarize()}.
+#' [dplyr::summarize()].
 #'
-#' If any \code{NA} values are present in \code{x} or \code{wt}, these functions
-#' will return \code{NA}.
+#' If any `NA` values are present in `x` or `wt`, these functions
+#' will return `NA`.
 #'
-#' \code{wt} must not contain any negative values. \code{wt} may contain values
+#' `wt` must not contain any negative values. `wt` may contain values
 #' of zero but must not only contain values of zero.
 #'
 #' @param x A logical or numeric vector.
-#' @param wt A numeric vector of weights the same length as \code{x}.
+#' @param wt A numeric vector of weights the same length as `x`.
 #' @param n A numeric vector of length one (i.e., a number) giving the number
-#'   of equally sized groups to split \code{x} into. Note that for \code{n}
-#'   groups, there are \code{n - 1} quantiles (i.e., cut points). Quantiles
-#'   currently supported include the median (\code{n = 2}), quartiles
-#'   (\code{n = 4}), quintiles (\code{n = 5}), deciles (\code{n = 10}), and
-#'   ventiles (\code{n = 20}).
-#' @return For all except \code{wt_quantile()}, a numeric vector of length
+#'   of equally sized groups to split `x` into. Note that for `n`
+#'   groups, there are `n - 1` quantiles (i.e., cut points). Quantiles
+#'   currently supported include the median (`n = 2`), quartiles
+#'   (`n = 4`), quintiles (`n = 5`), deciles (`n = 10`), and
+#'   ventiles (`n = 20`).
+#' @return For all except `wt_quantile()`, a numeric vector of length
 #'   one.
 #'
-#'   For \code{wt_quantile()}, a named numeric vector of length \code{n - 1}
-#'   unless any \code{NA} values are present in \code{x} or \code{wt}, in which
-#'   case a numeric vector of length one (containing \code{NA}) is returned.
+#'   For `wt_quantile()`, a named numeric vector of length `n - 1`
+#'   unless any `NA` values are present in `x` or `wt`, in which
+#'   case a numeric vector of length one (containing `NA`) is returned.
 #' @name wt_stats
 NULL
 

@@ -30,18 +30,18 @@ These functions are designed to be simple and compact.
 \details{
 These functions create one or more file paths based on the user's path to
 the SharePoint datasets library (as created by
-\code{\link[=make_sp_data_path]{make_sp_data_path()}}) and the directory
+\code{\link[=make_sp_data_path]{make_sp_data_path()}} and the directory
 structure and file naming convention of each dataset library. These functions
 do not verify whether the resulting files actually exist.
 }
 \section{Requesting a function}{
 
-If you'd like to request an \code{sp_*()} function for a dataset you use
+If you'd like to request an \verb{sp_*()} function for a dataset you use
 frequently, please file an
 \href{https://github.com/CenterOnBudget/Rcbpp/issues}{issue} on GitHub.
 }
 
 \seealso{
 \code{\link[=make_sp_data_path]{make_sp_data_path()}} to get your
-  basic path to the SharePoint datasets library.
+basic path to the SharePoint datasets library.
 }

@@ -2,16 +2,16 @@
 
 #' Make a race/ethnicity variable
 #'
-#' \code{make_race_eth_var()} creates a 5-level race/ethnicity variable in ACS,
+#' `make_race_eth_var()` creates a 5-level race/ethnicity variable in ACS,
 #' CPS ASEC, or basic monthly CPS microdata. Levels include white only, not
 #' Latino; Black only, not Latino; Latino (any race); Asian only, not Latino;
 #' and another race or multi-racial, not Latino.
 #'
 #' For the ACS, years 2005 to present are supported and required variables
-#' are \code{rac1p} and \code{hisp}. For the CPS ASEC, survey years 2003 to
-#' present are supported and required variables are \code{prdtrace} and
-#' \code{pehspnon}. For the basic monthly CPS, years 2003 to present are
-#' supported and required variables are \code{ptdtrace} and \code{pehspnon}.
+#' are `rac1p` and `hisp`. For the CPS ASEC, survey years 2003 to
+#' present are supported and required variables are `prdtrace` and
+#' `pehspnon`. For the basic monthly CPS, years 2003 to present are
+#' supported and required variables are `ptdtrace` and `pehspnon`.
 #'
 #' @section Warning:
 #' This function is designed to work with original, Census-based ACS or CPS
@@ -20,10 +20,10 @@
 #' that your data are behaving according to their official data dictionary.
 #'
 #' @param df Data frame to add race/ethnicity variable to.
-#' @param dataset Dataset corresponding to \code{df}. One of \code{"acs"},
-#'   \code{"cps_asec"}, or \code{"cps_basic"}.
+#' @param dataset Dataset corresponding to `df`. One of `"acs"`,
+#'   `"cps_asec"`, or `"cps_basic"`.
 #' @param name Name to give race/ethnicity variable. Defaults to
-#'   \code{"race_eth"}.
+#'   `"race_eth"`.
 #' @return A data frame.
 #'
 #' @export
@@ -111,19 +111,19 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 
 #' Make an age group variable
 #'
-#' \code{make_age_group_var()} creates a 3-level age group variable in ACS,
+#' `make_age_group_var()` creates a 3-level age group variable in ACS,
 #' CPS ASEC, or basic monthly CPS microdata. Levels include under 18, 18 to 64,
 #' and 65 and over.
 #'
 #' For the ACS, years 2005 to present are supported and the required variable
-#' is \code{agep}. For the CPS ASEC, survey years 1998 to present are supported
-#' and the required variable is \code{a_age}. For the basic monthly CPS, years
-#' 1998 to present are supported and the required variable is \code{prtage}.
+#' is `agep`. For the CPS ASEC, survey years 1998 to present are supported
+#' and the required variable is `a_age`. For the basic monthly CPS, years
+#' 1998 to present are supported and the required variable is `prtage`.
 #'
 #' @inheritSection make_race_eth_var Warning
 #'
 #' @param df Data frame to add age group variable to.
-#' @param name Name to give age group variable. Defaults to \code{"age_group"}.
+#' @param name Name to give age group variable. Defaults to `"age_group"`.
 #' @inheritParams make_race_eth_var
 #' @return A data frame.
 #'

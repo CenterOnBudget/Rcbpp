@@ -16,9 +16,9 @@ for the user.
 \details{
 This function comes in handy when you want to create one or more file paths
 for a dataset that is used infrequently or that does not yet have an
-\link{sp_data} function.
+\code{\link{sp_data}} function.
 }
 \seealso{
-\link{sp_data} for functions for creating paths to files in
-  the SharePoint datasets library.
+\code{\link{sp_data}} for functions for creating paths to files in
+the SharePoint datasets library.
 }

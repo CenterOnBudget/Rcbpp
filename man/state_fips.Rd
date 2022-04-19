@@ -5,8 +5,8 @@
 \alias{state_fips}
 \title{State FIPS codes}
 \format{
-A \href{https://tibble.tidyverse.org/}{tibble} with three variables:
-  \code{state_fips}, \code{state_abbrv}, and \code{state_name}.
+A tibble with three variables:
+\code{state_fips}, \code{state_abbrv}, and \code{state_name}.
 }
 \usage{
 state_fips
