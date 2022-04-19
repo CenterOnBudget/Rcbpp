@@ -17,7 +17,7 @@ A data frame.
 created via \code{\link[haven:read_dta]{haven::read_dta()}}. This function is meant to cut down on
 repetitive code associated with importing a DTA file when a CSV file is not
 readily available. The name of this function is a nod to the
-\code{\link[haven:zap_*]{haven::zap_*()}} functions.
+\verb{haven::zap_*()} functions.
 }
 \details{
 More specifically, \code{\link[=zap_stata]{zap_stata()}}:

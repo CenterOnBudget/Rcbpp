@@ -6,7 +6,7 @@
 #' created via [haven::read_dta()]. This function is meant to cut down on
 #' repetitive code associated with importing a DTA file when a CSV file is not
 #' readily available. The name of this function is a nod to the
-#' [haven::zap_*()] functions.
+#' `haven::zap_*()` functions.
 #'
 #' More specifically, [zap_stata()]:
 #'  - Removes any value labels and converts any tagged missing values to `NA`.
