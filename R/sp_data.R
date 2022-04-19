@@ -7,7 +7,7 @@
 #'
 #' These functions create one or more file paths based on the user's path to
 #' the SharePoint datasets library (as created by
-#' [make_sp_data_path()] and the directory
+#' [sp_data_path()] and the directory
 #' structure and file naming convention of each dataset library. These functions
 #' do not verify whether the resulting files actually exist.
 #'
@@ -20,7 +20,7 @@
 #' @param m One or more months (specified numerically).
 #' @param f Format of data. One of `"csv"`, `"dta"`, or `"parquet"`.
 #' @return A character vector containing the created file paths.
-#' @seealso [make_sp_data_path()] to get your
+#' @seealso [sp_data_path()] to get your
 #'   basic path to the SharePoint datasets library.
 #'
 #' @name sp_data
@@ -37,7 +37,7 @@ sp_acs <- function(y, f) {
     stop('"csv" file does not exist', call. = FALSE)
   }
 
-  path <- make_sp_data_path()
+  path <- sp_data_path()
   paste0(path, "ACS/", y, "/", y, "us", ".", f)
 }
 
@@ -52,7 +52,7 @@ sp_cps_asec <- function(y, f) {
     stop('"parquet" file does not exist', call. = FALSE)
   }
 
-  path <- make_sp_data_path()
+  path <- sp_data_path()
   paste0(path, "CPS/mar", y, "/mar", y, ".", f)
 }
 
@@ -76,26 +76,27 @@ sp_cps_basic <- function(y, m, f) {
   df$y_sub <- substr(df$y, 3, 4)
   df$m_abb <- tolower(month.abb)[df$m]
 
-  path <- make_sp_data_path()
+  path <- sp_data_path()
   paste0(path, "CPS-BASIC/", df$y, "/", df$m_abb, df$y_sub, "pub", ".", f)
 }
 
 
 #' Create a path to the SharePoint datasets library
 #'
-#' `make_sp_data_path()` creates a path to the SharePoint datasets library
+#' `sp_data_path()` creates a path to the SharePoint datasets library
 #' for the user.
 #'
 #' This function comes in handy when you want to create one or more file paths
 #' for a dataset that is used infrequently or that does not yet have an
 #' [`sp_data`] function.
 #'
+#' @aliases make_sp_data_path
 #' @return A character vector of length one.
 #' @seealso [`sp_data`] for functions for creating paths to files in
 #'   the SharePoint datasets library.
 #'
 #' @export
-make_sp_data_path <- function() {
+sp_data_path <- function() {
   sys_info <- Sys.info()
 
   if (sys_info["sysname"] == "Windows") {
@@ -110,6 +111,11 @@ make_sp_data_path <- function() {
   )
 }
 
+#' @export
+make_sp_data_path <- function() {
+  .Deprecated("sp_data_path")
+  sp_data_path()
+}
 
 check_y <- function(y) {
   if (!is.numeric(y)) {

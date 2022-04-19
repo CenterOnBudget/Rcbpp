@@ -30,7 +30,7 @@ These functions are designed to be simple and compact.
 \details{
 These functions create one or more file paths based on the user's path to
 the SharePoint datasets library (as created by
-\code{\link[=make_sp_data_path]{make_sp_data_path()}} and the directory
+\code{\link[=sp_data_path]{sp_data_path()}} and the directory
 structure and file naming convention of each dataset library. These functions
 do not verify whether the resulting files actually exist.
 }
@@ -42,6 +42,6 @@ frequently, please file an
 }
 
 \seealso{
-\code{\link[=make_sp_data_path]{make_sp_data_path()}} to get your
+\code{\link[=sp_data_path]{sp_data_path()}} to get your
 basic path to the SharePoint datasets library.
 }
