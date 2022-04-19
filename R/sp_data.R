@@ -81,42 +81,6 @@ sp_cps_basic <- function(y, m, f) {
 }
 
 
-#' Create a path to the SharePoint datasets library
-#'
-#' `sp_data_path()` creates a path to the SharePoint datasets library
-#' for the user.
-#'
-#' This function comes in handy when you want to create one or more file paths
-#' for a dataset that is used infrequently or that does not yet have an
-#' [`sp_data`] function.
-#'
-#' @aliases make_sp_data_path
-#' @return A character vector of length one.
-#' @seealso [`sp_data`] for functions for creating paths to files in
-#'   the SharePoint datasets library.
-#'
-#' @export
-sp_data_path <- function() {
-  sys_info <- Sys.info()
-
-  if (sys_info["sysname"] == "Windows") {
-    root <- "C:/"
-  } else {
-    root <- "/"
-  }
-
-  paste0(
-    root, "Users/", sys_info["user"],
-    "/Center on Budget and Policy Priorities/Datasets - "
-  )
-}
-
-#' @export
-make_sp_data_path <- function() {
-  .Deprecated("sp_data_path")
-  sp_data_path()
-}
-
 check_y <- function(y) {
   if (!is.numeric(y)) {
     stop("`y` must be a numeric vector", call. = FALSE)
