@@ -1,6 +1,6 @@
 Package: Rcbpp
 Title: R Utilities for CBPP Research
-Version: 0.9.3
+Version: 0.9.4
 Authors@R: c(
   person(
     given = "Matt",
@@ -11,6 +11,11 @@ Authors@R: c(
     given = "Luis",
     family = "Nuñez",
     email = "lnunez@cbpp.org",
+    role = "ctb"),
+  person(
+    given = "Claire",
+    family = "Zippel",
+    email = "czippel@cbpp.org",
     role = "ctb"))
 Description: R utilities to streamline CBPP research.
 License: MIT + file LICENSE
