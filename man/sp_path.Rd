@@ -7,11 +7,14 @@
 \alias{od_path}
 \title{Create a path to SharePoint and OneDrive directories}
 \usage{
-sp_data_path()
+sp_data_path(path = NULL)
 
-od_path()
+od_path(path = NULL)
 
-sp_path()
+sp_path(path = NULL)
+}
+\arguments{
+\item{path}{Unique file path string. Defaults to NULL.}
 }
 \value{
 A character vector of length one (invisibly).
