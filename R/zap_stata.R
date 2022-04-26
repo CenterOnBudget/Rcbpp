@@ -2,20 +2,18 @@
 
 #' Remove all Stata dataset attributes from a data frame
 #'
-#' \code{zap_stata()} removes all Stata dataset attributes from a data frame
-#' created via \code{haven::read_dta()}. This function is meant to cut down on
+#' `zap_stata()` removes all Stata dataset attributes from a data frame
+#' created via [haven::read_dta()]. This function is meant to cut down on
 #' repetitive code associated with importing a DTA file when a CSV file is not
 #' readily available. The name of this function is a nod to the
-#' \code{haven::zap_*()} functions.
+#' `haven::zap_*()` functions.
 #'
-#' More specifically, \code{zap_stata()}:
+#' More specifically, [zap_stata()]:
+#'  - Removes any value labels and converts any tagged missing values to `NA`.
+#'  - Removes any variable labels or formats.
+#'  - Removes the dataset label.
+#'  - Removes any dataset notes.
 #'
-#' \itemize{
-#'   \item Removes any value labels and converts any tagged missing values to \code{NA}.
-#'   \item Removes any variable labels or formats.
-#'   \item Removes the dataset label.
-#'   \item Removes any dataset notes.
-#' }
 #'
 #' @param df A data frame.
 #' @return A data frame.

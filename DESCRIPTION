@@ -1,6 +1,6 @@
 Package: Rcbpp
 Title: R Utilities for CBPP Research
-Version: 0.9.3
+Version: 0.9.4
 Authors@R: c(
   person(
     given = "Matt",
@@ -11,11 +11,17 @@ Authors@R: c(
     given = "Luis",
     family = "Nuñez",
     email = "lnunez@cbpp.org",
+    role = "ctb"),
+  person(
+    given = "Claire",
+    family = "Zippel",
+    email = "czippel@cbpp.org",
     role = "ctb"))
 Description: R utilities to streamline CBPP research.
-License: file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Depends: 
     R (>= 2.10)

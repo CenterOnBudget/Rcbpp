@@ -5,8 +5,8 @@
 \alias{cpi_u_rs}
 \title{CPI-U-RS}
 \format{
-A \href{https://tibble.tidyverse.org/}{tibble} with two variables:
-  \code{year} and \code{cpi_u_rs}.
+A tibble with two variables:
+\code{year} and \code{cpi_u_rs.}
 }
 \usage{
 cpi_u_rs

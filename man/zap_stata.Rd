@@ -14,18 +14,17 @@ A data frame.
 }
 \description{
 \code{zap_stata()} removes all Stata dataset attributes from a data frame
-created via \code{haven::read_dta()}. This function is meant to cut down on
+created via \code{\link[haven:read_dta]{haven::read_dta()}}. This function is meant to cut down on
 repetitive code associated with importing a DTA file when a CSV file is not
 readily available. The name of this function is a nod to the
-\code{haven::zap_*()} functions.
+\verb{haven::zap_*()} functions.
 }
 \details{
-More specifically, \code{zap_stata()}:
-
+More specifically, \code{\link[=zap_stata]{zap_stata()}}:
 \itemize{
-  \item Removes any value labels and converts any tagged missing values to \code{NA}.
-  \item Removes any variable labels or formats.
-  \item Removes the dataset label.
-  \item Removes any dataset notes.
+\item Removes any value labels and converts any tagged missing values to \code{NA}.
+\item Removes any variable labels or formats.
+\item Removes the dataset label.
+\item Removes any dataset notes.
 }
 }
