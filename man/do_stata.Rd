@@ -4,18 +4,20 @@
 \alias{do_stata}
 \title{Run a Stata \code{.do} file in batch mode}
 \usage{
-do_stata(file, stata_exe = NULL)
+do_stata(file, wd = NULL, stata_exe = NULL)
 }
 \arguments{
-\item{file}{A path to a Stata \code{.do} file}
+\item{file}{A path to a Stata \code{.do} file.}
+
+\item{wd}{Working directory in which to run the \code{.do} file. If \code{NULL}, the
+default, the current working directory is used.}
 
 \item{stata_exe}{The path to your Stata executable. If \code{NULL}, the default,
 will use the STATA_EXE environment variable.}
 }
 \description{
-Run a Stata \code{.do} file in batch mode from the command line. Works on Windows
-only. It is recommended to install the path to your Stata executable first
-with \code{\link[=stata_exe]{stata_exe()}}.
+Run a Stata \code{.do} file in batch mode from the command line. It is recommended
+to install the path to your Stata executable first with \code{\link[=stata_exe]{stata_exe()}}.
 }
 \examples{
 \dontrun{

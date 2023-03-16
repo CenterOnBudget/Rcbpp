@@ -84,11 +84,12 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
 
 #' Run a Stata `.do` file in batch mode
 #'
-#' Run a Stata `.do` file in batch mode from the command line. Works on Windows
-#' only. It is recommended to install the path to your Stata executable first
-#' with [stata_exe()].
+#' Run a Stata `.do` file in batch mode from the command line. It is recommended
+#' to install the path to your Stata executable first with [stata_exe()].
 #'
-#' @param file A path to a Stata `.do` file
+#' @param file A path to a Stata `.do` file.
+#' @param wd Working directory in which to run the `.do` file. If `NULL`, the
+#'   default, the current working directory is used.
 #' @param stata_exe The path to your Stata executable. If `NULL`, the default,
 #'   will use the STATA_EXE environment variable.
 #'
@@ -110,12 +111,7 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
 #' }
 #'
 
-do_stata <- function(file, stata_exe = NULL) {
-
-
-  if (Sys.info()[['sysname']] != "Windows") {
-    stop("Operating system not supported. `do_stata()` works on Windows only.")
-  }
+do_stata <- function(file, wd = NULL, stata_exe = NULL) {
 
   if (!file.exists(file)) {
     stop("The `.do` file you have supplied does not exist.")
@@ -132,9 +128,14 @@ do_stata <- function(file, stata_exe = NULL) {
     stop("The Stata executable path you have supplied does not exist.")
   }
 
-  stata_exe <- gsub("\\.exe$", "", stata_exe)
-  command <- paste0("\"", stata_exe, "\" /e do ", file)
-  shell(command)
+  invisible(
+    processx::run(
+      stata_exe,
+      c("/e", "do", file),
+      wd = wd,
+      spinner = TRUE
+    )
+  )
 
 }
 
