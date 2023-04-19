@@ -1,28 +1,29 @@
 Package: Rcbpp
 Title: R Utilities for CBPP Research
-Version: 0.9.4
+Version: 0.10.0
 Authors@R: c(
+  person(
+      given = "Claire",
+      family = "Zippel",
+      email = "czippel@cbpp.org",
+      role = "cre"),
   person(
     given = "Matt",
     family = "Saenz",
-    email = "vsaenz@cbpp.org",
-    role = c("aut", "cre")),
+    role = "aut"),
   person(
     given = "Luis",
     family = "Nuñez",
-    email = "lnunez@cbpp.org",
-    role = "ctb"),
-  person(
-    given = "Claire",
-    family = "Zippel",
-    email = "czippel@cbpp.org",
-    role = "ctb"))
+    role = "ctb")
+  )
 Description: R utilities to streamline CBPP research.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
 URL: https://centeronbudget.github.io/Rcbpp/
+Imports: 
+    processx

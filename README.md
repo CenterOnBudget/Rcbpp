@@ -40,13 +40,22 @@ mar21 <- read_csv(
   col_select = c(marsupwt, a_age, spm_resources, spm_povthreshold)
 )
 
-mar21 %>%
-  make_age_group_var("cps_asec") %>%
-  mutate(pop = TRUE, b100 = spm_resources < spm_povthreshold) %>%
-  group_by(age_group) %>%
-  summarize(across(c(pop, b100), wt_sum, wt = marsupwt), .groups = "drop") %>%
-  mutate(across(c(pop, b100), round), pov_rate = b100 / pop)
-#> # A tibble: 3 x 4
+mar21 |>
+  make_age_group_var("cps_asec") |>
+  mutate(
+    pop = TRUE, 
+    b100 = spm_resources < spm_povthreshold
+  ) |>
+  group_by(age_group) |>
+  summarize(
+    across(c(pop, b100), \(x) wt_sum(x, wt = marsupwt)), 
+    .groups = "drop"
+  ) |>
+  mutate(
+    across(c(pop, b100), round), 
+    pov_rate = b100 / pop
+  )
+#> # A tibble: 3 × 4
 #>   age_group         pop     b100 pov_rate
 #>   <fct>           <dbl>    <dbl>    <dbl>
 #> 1 Under 18     72777497  7044256   0.0968

@@ -97,4 +97,3 @@ check_f <- function(f) {
     stop('`f` must be one of "csv", "dta", or "parquet"', call. = FALSE)
   }
 }
-
