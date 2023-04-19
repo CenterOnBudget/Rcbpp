@@ -14,10 +14,13 @@ reference:
   - sp_data
 - title: "Stata Synergy"
   contents:
+  - do_stata
+  - stata_exe
   - zap_stata
 - title: "State Codes"
   contents:
   - state_fips
+  - fct_statefips
 - title: "Built in Datasets"
   contents:
   - cpi_u_rs
