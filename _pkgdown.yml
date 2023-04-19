@@ -1,0 +1,24 @@
+url: https://centeronbudget.github.io/Rcbpp/
+template:
+  bootstrap: 5
+reference:
+- title: "Microdata Helpers"
+  desc: "For ACS, CPS ASEC, and basic monthly CPS microdata"
+  contents:
+  - make_age_group_var
+  - make_race_eth_var
+  - wt_stats
+- title: "CBPP Shared Drives"
+  contents:
+  - sp_path
+  - sp_data
+- title: "Stata Synergy"
+  contents:
+  - zap_stata
+- title: "State Codes"
+  contents:
+  - state_fips
+- title: "Built in Datasets"
+  contents:
+  - cpi_u_rs
+  - state_fips
