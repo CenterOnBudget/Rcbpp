@@ -52,9 +52,9 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
     }
     else {
       if (overwrite) {
-        message("Your original .Renviron will be backed up and stored in your R HOME directory if needed.")
+        message("Your original .Renviron will be backed up and stored in your R HOME directory if needed.") #nolint
         oldenv <- read.table(renv, stringsAsFactors = FALSE)
-        newenv <- oldenv[-grep("STATA_EXE", oldenv),]
+        newenv <- oldenv[-grep("STATA_EXE", oldenv), ]
         write.table(
           newenv, renv, quote = FALSE, sep = "\n",
           col.names = FALSE, row.names = FALSE
@@ -63,7 +63,7 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
       else {
         tv <- readLines(renv)
         if (any(grepl("STATA_EXE", tv))) {
-          stop("STATA_EXE already exists in your .Renviron. You can overwrite it with the argument `overwrite = TRUE`", call. = FALSE)
+          stop("STATA_EXE already exists in your .Renviron. You can overwrite it with the argument `overwrite = TRUE`", call. = FALSE) #nolint
         }
       }
     }
@@ -71,11 +71,11 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
     stata_exe_var <- paste0("STATA_EXE='", path, "'")
     # Append Stata path to .Renviron file
     write(stata_exe_var, renv, sep = "\n", append = TRUE)
-    message('The path to your Stata executable has been stored in your .Renviron and can be accessed by Sys.getenv("STATA_EXE"). \nTo use now, restart R or run `readRenviron("~/.Renviron")`')
+    message('The path to your Stata executable has been stored in your .Renviron and can be accessed by Sys.getenv("STATA_EXE"). \nTo use now, restart R or run `readRenviron("~/.Renviron")`') #nolint
     return(path)
 
   } else {
-    message("To install the path to your Stata executable for use in future sessions, run this function with `install = TRUE`.")
+    message("To install the path to your Stata executable for use in future sessions, run this function with `install = TRUE`.") #nolint
     Sys.setenv(STATA_EXE = path)
   }
 
@@ -120,7 +120,7 @@ do_stata <- function(file, wd = NULL, stata_exe = NULL) {
   if (is.null(stata_exe)) {
     stata_exe <- Sys.getenv("STATA_EXE")
     if (stata_exe == "") {
-      stop("You have not set up the path to your Stata executable. \nPlease supply the path to the `stata_exe` argument, or use the `stata_exe()` function to store the path for this session.")
+      stop("You have not set up the path to your Stata executable. \nPlease supply the path to the `stata_exe` argument, or use the `stata_exe()` function to store the path for this session.") #nolint
     }
   }
 
@@ -138,5 +138,3 @@ do_stata <- function(file, wd = NULL, stata_exe = NULL) {
   )
 
 }
-
-

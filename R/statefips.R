@@ -39,5 +39,3 @@ fct_statefips <- function(x, labels = c("name", "abbrv")) {
   )
 
 }
-
-
