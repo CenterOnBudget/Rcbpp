@@ -32,6 +32,7 @@ To install Rcbpp, run the following code:
 # install.packages("devtools")
 devtools::install_github("CenterOnBudget/Rcbpp")
 ```
+
 ## Example
 
 ```{r example, message=FALSE, warning=FALSE}
@@ -43,12 +44,21 @@ mar21 <- read_csv(
   col_select = c(marsupwt, a_age, spm_resources, spm_povthreshold)
 )
 
-mar21 %>%
-  make_age_group_var("cps_asec") %>%
-  mutate(pop = TRUE, b100 = spm_resources < spm_povthreshold) %>%
-  group_by(age_group) %>%
-  summarize(across(c(pop, b100), wt_sum, wt = marsupwt), .groups = "drop") %>%
-  mutate(across(c(pop, b100), round), pov_rate = b100 / pop)
+mar21 |>
+  make_age_group_var("cps_asec") |>
+  mutate(
+    pop = TRUE, 
+    b100 = spm_resources < spm_povthreshold
+  ) |>
+  group_by(age_group) |>
+  summarize(
+    across(c(pop, b100), \(x) wt_sum(x, wt = marsupwt)), 
+    .groups = "drop"
+  ) |>
+  mutate(
+    across(c(pop, b100), round), 
+    pov_rate = b100 / pop
+  )
 
 with(mar21, wt_quantile(a_age, wt = marsupwt, n = 10))
 ```
