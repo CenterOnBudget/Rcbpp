@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">Rcbpp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,16 +39,22 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.0" id="rcbpp-0100">Rcbpp 0.10.0<a class="anchor" aria-label="anchor" href="#rcbpp-0100"></a></h2>
+<ul><li><p>Added <code><a href="../reference/do_stata.html">do_stata()</a></code>, a function to execute Stata .do files in <a href="https://www.stata.com/support/faqs/windows/batch-mode/" class="external-link">batch mode</a> from R. Helper function <code><a href="../reference/stata_exe.html">stata_exe()</a></code> stores the path to the user’s Stata executable in <code>.Renviron</code> for use by <code><a href="../reference/do_stata.html">do_stata()</a></code>.</p></li>
+<li><p>Added <code><a href="../reference/fct_statefips.html">fct_statefips()</a></code>, a function for converting a numeric vector of state FIPS codes into a labeled factor.</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.4" id="rcbpp-094">Rcbpp 0.9.4<a class="anchor" aria-label="anchor" href="#rcbpp-094"></a></h2>
 <ul><li><p>New functions <code>sp_path</code> and <code>od_path</code> construct paths to the user’s SharePoint and OneDrive directories, respectively.</p></li>
 <li><p><code>sp_data_path</code> is the new name for <code>make_sp_data_path</code>. The old function name is retained but will throw a warning.</p></li>
 <li><p>The <code>cpi_u_rs</code> dataset is updated with the latest available figures, for calendar year 2021.</p></li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Matt Saenz.</p>
+  <p></p><p>Developed by Claire Zippel, Matt Saenz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

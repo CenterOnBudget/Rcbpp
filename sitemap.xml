@@ -22,6 +22,12 @@
     <loc>https://centeronbudget.github.io/Rcbpp/reference/cpi_u_rs.html</loc>
   </url>
   <url>
+    <loc>https://centeronbudget.github.io/Rcbpp/reference/do_stata.html</loc>
+  </url>
+  <url>
+    <loc>https://centeronbudget.github.io/Rcbpp/reference/fct_statefips.html</loc>
+  </url>
+  <url>
     <loc>https://centeronbudget.github.io/Rcbpp/reference/index.html</loc>
   </url>
   <url>
@@ -35,6 +41,9 @@
   </url>
   <url>
     <loc>https://centeronbudget.github.io/Rcbpp/reference/sp_path.html</loc>
+  </url>
+  <url>
+    <loc>https://centeronbudget.github.io/Rcbpp/reference/stata_exe.html</loc>
   </url>
   <url>
     <loc>https://centeronbudget.github.io/Rcbpp/reference/state_fips.html</loc>
