@@ -3,13 +3,11 @@
 library(readxl)
 library(dplyr)
 
-if (!file.exists("data-raw/cpi_u_rs.xlsx")) {
-  download.file(
-    url = "https://www.bls.gov/cpi/research-series/r-cpi-u-rs-allitems.xlsx",
-    destfile = "data-raw/cpi_u_rs.xlsx",
-    mode = "wb"
-  )
-}
+download.file(
+  url = "https://www.bls.gov/cpi/research-series/r-cpi-u-rs-allitems.xlsx",
+  destfile = "data-raw/cpi_u_rs.xlsx",
+  mode = "wb"
+)
 
 raw_cpi_u_rs <- read_xlsx("data-raw/cpi_u_rs.xlsx", skip = 5)
 

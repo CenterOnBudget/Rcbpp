@@ -12,6 +12,7 @@ A tibble with two variables:
 cpi_u_rs
 }
 \description{
-A dataset containing all available CPI-U-RS calendar year averages.
+A dataset containing all available R-CPI-U-RS (formerly CPI-U-RS) calendar
+year averages.
 }
 \keyword{datasets}

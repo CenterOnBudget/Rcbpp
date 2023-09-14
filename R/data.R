@@ -12,7 +12,8 @@
 
 #' CPI-U-RS
 #'
-#' A dataset containing all available CPI-U-RS calendar year averages.
+#' A dataset containing all available R-CPI-U-RS (formerly CPI-U-RS) calendar
+#' year averages.
 #'
 #' @format A tibble with two variables:
 #'   `year` and `cpi_u_rs.`

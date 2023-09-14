@@ -1,3 +1,8 @@
+# Rcbpp 0.10.1
+
+- The `cpi_u_rs` dataset is updated with the latest available figures, for calendar year 2022.
+
+
 # Rcbpp 0.10.0
 
 - Added `do_stata()`, a function to execute Stata .do files in [batch mode](https://www.stata.com/support/faqs/windows/batch-mode/) from R. Helper function `stata_exe()` stores the path to the user's Stata executable in `.Renviron` for use by `do_stata()`.
