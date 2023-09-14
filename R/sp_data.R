@@ -63,7 +63,10 @@ sp_cps_basic <- function(y, m, f) {
   check_y(y)
 
   if (!is.numeric(m) || !all(m %in% 1:12)) {
-    stop("`m` must be a numeric vector with values ranging from 1 to 12", call. = FALSE)
+    stop(
+      "`m` must be a numeric vector with values ranging from 1 to 12",
+      call. = FALSE
+    )
   }
 
   check_f(f)

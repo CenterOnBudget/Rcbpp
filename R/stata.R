@@ -49,8 +49,7 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
     }
     if (!file.exists(renv)) {
       file.create(renv)
-    }
-    else {
+    } else {
       if (overwrite) {
         message("Your original .Renviron will be backed up and stored in your R HOME directory if needed.") #nolint
         oldenv <- read.table(renv, stringsAsFactors = FALSE)
@@ -59,8 +58,7 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
           newenv, renv, quote = FALSE, sep = "\n",
           col.names = FALSE, row.names = FALSE
         )
-      }
-      else {
+      } else {
         tv <- readLines(renv)
         if (any(grepl("STATA_EXE", tv))) {
           stop("STATA_EXE already exists in your .Renviron. You can overwrite it with the argument `overwrite = TRUE`", call. = FALSE) #nolint
@@ -124,7 +122,7 @@ do_stata <- function(file, wd = NULL, stata_exe = NULL) {
     }
   }
 
-  if (!is.null(stata_exe) & !file.exists(stata_exe)) {
+  if (!is.null(stata_exe) && !file.exists(stata_exe)) {
     stop("The Stata executable path you have supplied does not exist.")
   }
 

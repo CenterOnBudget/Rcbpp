@@ -215,7 +215,10 @@ check_make_var_df <- function(df, needed_vars) {
     }
 
     if (any(is.na(col))) {
-      stop("Column `", col_name, "` must not contain any `NA` values", call. = FALSE)
+      stop(
+        "Column `", col_name, "` must not contain any `NA` values",
+        call. = FALSE
+      )
     }
   }
 }
