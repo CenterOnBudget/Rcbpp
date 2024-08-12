@@ -1,3 +1,8 @@
+# Rcbpp 0.10.2
+
+- The `cpi_u_rs` dataset is updated with the latest available figures, for calendar year 2023.
+
+
 # Rcbpp 0.10.1
 
 - The `cpi_u_rs` dataset is updated with the latest available figures, for calendar year 2022.
