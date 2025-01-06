@@ -1,8 +1,8 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-08-12T15:51Z
+last_built: 2025-01-06T18:10Z
 urls:
   reference: https://centeronbudget.github.io/Rcbpp/reference
   article: https://centeronbudget.github.io/Rcbpp/articles
