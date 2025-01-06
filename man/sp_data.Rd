@@ -5,7 +5,7 @@
 \alias{sp_acs}
 \alias{sp_cps_asec}
 \alias{sp_cps_basic}
-\title{Create paths to files in the SharePoint datasets library}
+\title{Create paths to files in a synced datasets library}
 \usage{
 sp_acs(y, f)
 
@@ -24,15 +24,14 @@ sp_cps_basic(y, m, f)
 A character vector containing the created file paths.
 }
 \description{
-Functions for creating paths to files in the SharePoint datasets library.
+Functions for creating paths to files in a synced datasets library.
 These functions are designed to be simple and compact.
 }
 \details{
-These functions create one or more file paths based on the user's path to
-the SharePoint datasets library (as created by
-\code{\link[=sp_data_path]{sp_data_path()}} and the directory
-structure and file naming convention of each dataset library. These functions
-do not verify whether the resulting files actually exist.
+These functions create one or more file paths based on \code{\link[=sp_data_path]{sp_data_path()}}
+and the directory structure and file naming convention of each dataset
+library. These functions do not verify whether the resulting files actually
+exist.
 }
 \section{Requesting a function}{
 
@@ -43,5 +42,5 @@ frequently, please file an
 
 \seealso{
 \code{\link[=sp_data_path]{sp_data_path()}} to get your
-basic path to the SharePoint datasets library.
+basic path to a synced datasets library.
 }
