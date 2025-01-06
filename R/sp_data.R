@@ -1,15 +1,14 @@
 
 
-#' Create paths to files in the SharePoint datasets library
+#' Create paths to files in a synced datasets library
 #'
-#' Functions for creating paths to files in the SharePoint datasets library.
+#' Functions for creating paths to files in a synced datasets library.
 #' These functions are designed to be simple and compact.
 #'
-#' These functions create one or more file paths based on the user's path to
-#' the SharePoint datasets library (as created by
-#' [sp_data_path()] and the directory
-#' structure and file naming convention of each dataset library. These functions
-#' do not verify whether the resulting files actually exist.
+#' These functions create one or more file paths based on [sp_data_path()]
+#' and the directory structure and file naming convention of each dataset
+#' library. These functions do not verify whether the resulting files actually
+#' exist.
 #'
 #' @section Requesting a function:
 #' If you'd like to request an `sp_*()` function for a dataset you use
@@ -21,7 +20,7 @@
 #' @param f Format of data. One of `"csv"`, `"dta"`, or `"parquet"`.
 #' @return A character vector containing the created file paths.
 #' @seealso [sp_data_path()] to get your
-#'   basic path to the SharePoint datasets library.
+#'   basic path to a synced datasets library.
 #'
 #' @name sp_data
 NULL

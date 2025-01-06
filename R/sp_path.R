@@ -3,10 +3,9 @@
 #' Create a path to SharePoint and OneDrive directories
 #'
 #' @description
-#' `sp_path()` creates a path to the user's SharePoint directory.
+#' `sp_path()` creates a path to the directory for synced SharePoint folders.
 #'
-#' `sp_data_path()` creates a path to the SharePoint datasets library
-#' for the user.
+#' `sp_data_path()` creates the start of the path to a synced datasets library.
 #'
 #' `od_path()` creates a path to the user's OneDrive.
 #'
@@ -17,7 +16,7 @@
 #' @return A character vector of length one (invisibly).
 #' @aliases make_sp_data_path
 #' @seealso [`sp_data`] for functions for creating paths to files in
-#'   the SharePoint datasets library.
+#'   a synced datasets library.
 #'
 #' @name sp_path
 NULL
@@ -51,11 +50,5 @@ sp_path <- function(path = NULL) {
 
 
 user_home <- function() {
-  sys_info <- Sys.info()
-  if (sys_info["sysname"] == "Windows") {
-    root <- "C:/"
-  } else {
-    root <- "/"
-  }
-  paste0(root, "Users/", sys_info["user"])
+  Sys.getenv("USERPROFILE")
 }

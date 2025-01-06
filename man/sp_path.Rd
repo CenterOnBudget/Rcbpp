@@ -20,10 +20,9 @@ sp_path(path = NULL)
 A character vector of length one (invisibly).
 }
 \description{
-\code{sp_path()} creates a path to the user's SharePoint directory.
+\code{sp_path()} creates a path to the directory for synced SharePoint folders.
 
-\code{sp_data_path()} creates a path to the SharePoint datasets library
-for the user.
+\code{sp_data_path()} creates the start of the path to a synced datasets library.
 
 \code{od_path()} creates a path to the user's OneDrive.
 
@@ -32,5 +31,5 @@ exist.
 }
 \seealso{
 \code{\link{sp_data}} for functions for creating paths to files in
-the SharePoint datasets library.
+a synced datasets library.
 }

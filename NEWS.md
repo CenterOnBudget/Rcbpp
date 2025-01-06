@@ -1,3 +1,8 @@
+# Rcbpp 0.10.3
+
+- Hot fix for `sp_*` functions ([#28](https://github.com/CenterOnBudget/Rcbpp/issues/28))
+
+
 # Rcbpp 0.10.2
 
 - The `cpi_u_rs` dataset is updated with the latest available figures, for calendar year 2023.
