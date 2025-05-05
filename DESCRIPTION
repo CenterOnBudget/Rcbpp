@@ -1,29 +1,28 @@
 Package: Rcbpp
-Title: R Utilities for CBPP Research
-Version: 0.10.3
+Title: Useful R Functions for CBPP Researchers
+Version: 1.0.0
 Authors@R: c(
-  person(
-      given = "Claire",
-      family = "Zippel",
-      email = "czippel@cbpp.org",
-      role = "cre"),
-  person(
-    given = "Matt",
-    family = "Saenz",
-    role = "aut"),
-  person(
-    given = "Luis",
-    family = "Nuñez",
-    role = "ctb")
-  )
-Description: R utilities to streamline CBPP research.
+  person("Claire", "Zippel", email = "czippel@cbpp.org", role = c("cre", "aut")),
+  person("Matt", "Saenz", role = "aut"),
+  person("Luis","Nuñez", role = "ctb"),
+  person("Center on Budget and Policy Priorities", role = c("fnd", "cph")))
+Description: Useful R functions for CBPP researchers.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/CenterOnBudget/Rcbpp
+Imports: 
+    cli,
+    dplyr,
+    fs,
+    lifecycle,
+    processx,
+    rlang,
+    stats,
+    tibble
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
-    R (>= 2.10)
-URL: https://centeronbudget.github.io/Rcbpp/
-Imports: 
-    processx
+    R (>= 3.5)
+Suggests: 
+    haven

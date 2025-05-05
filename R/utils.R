@@ -1,5 +1,11 @@
 
-
-is_number <- function(x) is.numeric(x) && length(x) == 1
-is_string <- function(x) is.character(x) && length(x) == 1
-`%!in%` <- function(x, table) match(x, table, nomatch = 0) == 0  # nolint
+check_data_frame <- function(
+    x, arg = rlang::caller_arg(x), call = rlang::caller_env()
+) {
+  if (!is.data.frame(x)) {
+    cli::cli_abort(
+      "{.arg arg} must be a data frame, not {.obj_type_friendly x}",
+      call = call
+    )
+  }
+}

@@ -6,45 +6,78 @@
 \alias{wt_mean}
 \alias{wt_median}
 \alias{wt_quantile}
-\title{Compute basic weighted statistics}
+\title{Compute weighted statistics}
 \usage{
-wt_sum(x, wt)
+wt_sum(x, wt, na.rm = FALSE)
 
-wt_mean(x, wt)
+wt_mean(x, wt, na.rm = FALSE)
 
-wt_median(x, wt)
+wt_median(x, wt, na.rm = FALSE)
 
-wt_quantile(x, wt, n)
+wt_quantile(x, wt, n, probs, na.rm = FALSE, names = TRUE)
 }
 \arguments{
 \item{x}{A logical or numeric vector.}
 
-\item{wt}{A numeric vector of weights the same length as \code{x}.}
+\item{wt}{A numeric vector of frequency weights the same length as \code{x}.
+Negative weights are not permitted.}
 
-\item{n}{A numeric vector of length one (i.e., a number) giving the number
-of equally sized groups to split \code{x} into. Note that for \code{n}
-groups, there are \code{n - 1} quantiles (i.e., cut points). Quantiles
-currently supported include the median (\code{n = 2}), quartiles
-(\code{n = 4}), quintiles (\code{n = 5}), deciles (\code{n = 10}), and
-ventiles (\code{n = 20}).}
+\item{na.rm}{Should cases with \code{NA} values in \code{x} or \code{wt} be removed?}
+
+\item{n, probs}{Either of two arguments may be used to specify the quantiles
+to be produced:
+\itemize{
+\item \code{n}: A single integer giving the number of quantiles.
+\item \code{probs}: A numeric vector of probabilities with values greater than 0 and
+less than 1.
+}}
+
+\item{names}{If \code{TRUE}, the result will have \link{names} of the form
+\code{paste0(round(probs * 100, 1), "\%")}}
 }
 \value{
-For all except \code{wt_quantile()}, a numeric vector of length
-one.
-
-For \code{wt_quantile()}, a named numeric vector of length \code{n - 1}
-unless any \code{NA} values are present in \code{x} or \code{wt}, in which
-case a numeric vector of length one (containing \code{NA}) is returned.
+For all except \code{\link[=wt_quantile]{wt_quantile()}}, a numeric vector of length one.
+For \code{\link[=wt_quantile]{wt_quantile()}}:
+\itemize{
+\item When the \code{n} argument is used, a numeric vector of length \code{n - 1}.
+\item When the \code{probs} argument is used, a numeric vector of length
+\code{length(probs)}.
+}
 }
 \description{
-Functions for computing basic weighted statistics. These functions are
-designed to be strict, consistent, and useful within
-\code{\link[dplyr:summarise]{dplyr::summarize()}}.
+\itemize{
+\item \code{wt_mean()} produces the weighted arithmetic mean.
+\item \code{wt_sum()} produces the weighted sum.
+\item \code{wt_quantile()} produces weighted sample quantiles corresponding to the
+given probabilities or, alternatively, number of quantiles.
+\item \code{wt_median()} is a simple wrapper around \code{wt_quantile()} that produces
+the median.
+}
 }
 \details{
-If any \code{NA} values are present in \code{x} or \code{wt}, these functions
-will return \code{NA}.
+With \code{na.rm = TRUE}, only complete cases of \code{x} and \code{wt} are
+included in the calculation. This matches the behavior of
+\link[collapse:fast-statistical-functions]{collapse::fast-statistical-functions} and \code{\link[collapse:fquantile]{collapse::fquantile()}}, and
+deviates from the behavior of \code{\link[stats:weighted.mean]{stats::weighted.mean()}} which always produces
+\code{NA} if there are any missing weights.
 
-\code{wt} must not contain any negative values. \code{wt} may contain values
-of zero but must not only contain values of zero.
+Quantiles are computed using the type 2 quantile algorithm described in
+Hyndman and Fan (1996), which is Stata's default formula for percentiles.
+}
+\examples{
+library(dplyr)
+cps \%>\%
+  summarize(
+    mean = wt_mean(ptotval, wt = marsupwt),
+    median = wt_median(ptotval, wt = marsupwt),
+    p75 = wt_quantile(ptotval, wt = marsupwt, probs = 0.75)
+  )
+
+}
+\references{
+Hyndman, R. J. and Fan, Y. (1996) Sample quantiles in statistical
+packages, American Statistician 50, 361–365. doi:10.2307/2684934.
+
+StataCorp (2023) pctile — Create variable containing percentile, Stata 18
+Base Reference Manual, College Station, TX: Stata Press.
 }

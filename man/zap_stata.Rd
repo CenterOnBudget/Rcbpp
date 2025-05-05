@@ -4,27 +4,40 @@
 \alias{zap_stata}
 \title{Remove all Stata dataset attributes from a data frame}
 \usage{
-zap_stata(df)
+zap_stata(data, df = deprecated())
 }
 \arguments{
-\item{df}{A data frame.}
+\item{data}{A data frame or data frame extension (e.g. a tibble).}
+
+\item{df}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Use of \code{df} is now deprecated;
+please use \code{data} instead.}
 }
 \value{
-A data frame.
+The input data frame sans Stata attributes.
 }
 \description{
-\code{zap_stata()} removes all Stata dataset attributes from a data frame
-created via \code{\link[haven:read_dta]{haven::read_dta()}}. This function is meant to cut down on
-repetitive code associated with importing a DTA file when a CSV file is not
-readily available. The name of this function is a nod to the
-\verb{haven::zap_*()} functions.
-}
-\details{
-More specifically, \code{\link[=zap_stata]{zap_stata()}}:
+\code{zap_stata()} removes all Stata attributes from a data frame
+returned by \code{\link[haven:read_dta]{haven::read_dta()}}. Specifically, it:
 \itemize{
-\item Removes any value labels and converts any tagged missing values to \code{NA}.
-\item Removes any variable labels or formats.
-\item Removes the dataset label.
-\item Removes any dataset notes.
+\item Removes variable labels, value labels, format attributes, and display
+width attributes from all variables
+\item Removes dataset label and notes
+\item Converts all tagged missing values to regular R NA
 }
+}
+\examples{
+library(haven)
+
+# The built-in dataset `cps_unzapped` has Stata attributes
+cps_unzapped
+attr(cps_unzapped, "label")
+
+# Remove them all:
+cps_zapped <- zap_stata(cps_unzapped)
+cps_zapped
+attr(cps_zapped, "label")
+
+}
+\seealso{
+\code{\link[haven:zap_label]{haven::zap_label()}} and friends
 }

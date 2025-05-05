@@ -5,14 +5,26 @@
 \alias{state_fips}
 \title{State FIPS codes}
 \format{
-A tibble with three variables:
-\code{state_fips}, \code{state_abbrv}, and \code{state_name}.
+A data frame with 57 rows and 3 columns:
+\describe{
+\item{state_fips}{State FIPS code (numeric)}
+\item{state_abbrv}{State postal abbreviation (factor)}
+\item{state_name}{State name (factor)}
+}
+}
+\source{
+\url{https://www.census.gov/library/reference/code-lists/ansi.html}
 }
 \usage{
 state_fips
 }
 \description{
 A dataset containing state FIPS codes along with corresponding state names
-and postal abbreviations.
+and postal abbreviations. State equivalents (U.S. territories, outlying
+areas, and Freely Associated States) are included.
+}
+\examples{
+state_fips
+
 }
 \keyword{datasets}

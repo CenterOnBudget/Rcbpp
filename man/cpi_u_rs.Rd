@@ -5,14 +5,24 @@
 \alias{cpi_u_rs}
 \title{CPI-U-RS}
 \format{
-A tibble with two variables:
-\code{year} and \code{cpi_u_rs.}
+A data frame with 2 columns:
+\describe{
+\item{year}{Year}
+\item{cpi_u_rs}{Annual average R-CPI-U-RS}
+}
+}
+\source{
+\url{https://www.bls.gov/cpi/research-series/r-cpi-u-rs-home.htm}
 }
 \usage{
 cpi_u_rs
 }
 \description{
-A dataset containing all available R-CPI-U-RS (formerly CPI-U-RS) calendar
-year averages.
+A dataset containing all available R-CPI-U-RS (formerly known as CPI-U-RS)
+calendar year averages.
+}
+\examples{
+cpi_u_rs
+
 }
 \keyword{datasets}

@@ -2,27 +2,38 @@
 % Please edit documentation in R/statefips.R
 \name{fct_statefips}
 \alias{fct_statefips}
-\title{Convert a state FIPS code to a labeled factor}
+\title{Convert state FIPS codes to a labeled factor}
 \usage{
-fct_statefips(x, labels = c("name", "abbrv"))
+fct_statefips(x, labels = c("name", "abbrv"), drop_unused = FALSE)
 }
 \arguments{
-\item{x}{Vector of state FIPS codes. If x is a character vector, it will
-first be coerced to numeric.}
+\item{x}{A numeric or character vector of state FIPS codes.}
 
-\item{labels}{A character string specifying how to label the levels: \code{"name"}
-for state names (the default), or \code{"abbrv"} for state postal abbreviations.}
+\item{labels}{Either \code{"name"}, to use state names for the factor levels (the
+default), or \code{"abbrv"}, to use state postal abbreviations.}
+
+\item{drop_unused}{Whether to drop unused levels. If \code{FALSE}, the default,
+the levels of the resulting factor will include every state and state
+equivalent.}
 }
 \value{
-x as a labeled factor
+A factor.
 }
 \description{
-Convert a state FIPS code to a labeled factor
+Convert a vector of state FIPS codes into a factor labeled by state name or
+postal abbreviation.
 }
 \examples{
 fips <- c(1, 6, 11, 48)
 fct_statefips(fips)
-fct_statefips(fips, labels = "abbrv")
+
+# Character vectors work too; elements that can't be coerced to an integer
+# will be `NA`
+fips_chr <- c("01", "06", "11", "48", "XYZ")
+fct_statefips(fips_chr)
+
+# Resulting levels may be restricted to those present in the input
+fct_statefips(fips, drop_unused = TRUE)
 
 }
 \seealso{

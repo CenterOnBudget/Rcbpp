@@ -2,34 +2,38 @@
 % Please edit documentation in R/sp_path.R
 \name{sp_path}
 \alias{sp_path}
-\alias{make_sp_data_path}
 \alias{sp_data_path}
 \alias{od_path}
-\title{Create a path to SharePoint and OneDrive directories}
+\title{Create a path within SharePoint and OneDrive directories}
 \usage{
-sp_data_path(path = NULL)
+sp_path(...)
 
-od_path(path = NULL)
+sp_data_path(...)
 
-sp_path(path = NULL)
+od_path(...)
 }
 \arguments{
-\item{path}{Unique file path string. Defaults to NULL.}
+\item{...}{Additional paths appended to the directory by \code{\link[fs:path]{fs::path()}}.}
 }
 \value{
-A character vector of length one (invisibly).
+A character vector of paths.
 }
 \description{
-\code{sp_path()} creates a path to the directory for synced SharePoint folders.
-
-\code{sp_data_path()} creates the start of the path to a synced datasets library.
-
-\code{od_path()} creates a path to the user's OneDrive.
-
-These functions do not verify whether the resulting directories actually
-exist.
+Each of these functions constructs a path within synced OneDrive or
+SharePoint directories.
+\itemize{
+\item \code{sp_path()} constructs a path to the user's SharePoint directory.
+\item \code{od_path()} constructs a path to the user's OneDrive directory.
+\item \code{sp_data_path()} is used to construct paths to datasets library folders
+within the user's SharePoint directory. For example, \code{sp_data_path("ACS", "2023")} is equivalent to \code{sp_path("Datasets - ACS", "2023")}
 }
-\seealso{
-\code{\link{sp_data}} for functions for creating paths to files in
-a synced datasets library.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+sp_path()
+
+od_path("my_folder/my_file.csv")
+
+sp_data_path("CPS-BASIC", "2023", paste0(tolower(month.abb), "23pub.dta"))
+\dontshow{\}) # examplesIf}
 }

@@ -1,54 +1,52 @@
 
-
-#' Create a path to SharePoint and OneDrive directories
+#' Create a path within SharePoint and OneDrive directories
 #'
 #' @description
-#' `sp_path()` creates a path to the directory for synced SharePoint folders.
+#' Each of these functions constructs a path within synced OneDrive or
+#' SharePoint directories.
 #'
-#' `sp_data_path()` creates the start of the path to a synced datasets library.
+#' - `sp_path()` constructs a path to the user's SharePoint directory.
+#' - `od_path()` constructs a path to the user's OneDrive directory.
+#' - `sp_data_path()` is used to construct paths to datasets library folders
+#'    within the user's SharePoint directory. For example, `sp_data_path("ACS",
+#'    "2023")` is equivalent to `sp_path("Datasets - ACS", "2023")`
 #'
-#' `od_path()` creates a path to the user's OneDrive.
+#' @param ... Additional paths appended to the directory by [fs::path()].
 #'
-#' These functions do not verify whether the resulting directories actually
-#' exist.
+#' @returns A character vector of paths.
 #'
-#' @param path Unique file path string. Defaults to NULL.
-#' @return A character vector of length one (invisibly).
-#' @aliases make_sp_data_path
-#' @seealso [`sp_data`] for functions for creating paths to files in
-#'   a synced datasets library.
+#' @examplesIf interactive()
+#' sp_path()
+#'
+#' od_path("my_folder/my_file.csv")
+#'
+#' sp_data_path("CPS-BASIC", "2023", paste0(tolower(month.abb), "23pub.dta"))
 #'
 #' @name sp_path
+
 NULL
 
 
 #' @rdname sp_path
 #' @export
-sp_data_path <- function(path = NULL) {
-  paste0(user_home(), "/Center on Budget and Policy Priorities/Datasets - ",
-         path)
-}
-
-#' @export
-make_sp_data_path <- function() {
-  .Deprecated("sp_data_path")
-  sp_data_path()
+sp_path <- function(...) {
+  fs::path_home(cbpp(), ...)
 }
 
 #' @rdname sp_path
 #' @export
-od_path <- function(path = NULL) {
-  paste(user_home(), "OneDrive - Center on Budget and Policy Priorities", path,
-        sep = "/")
+sp_data_path <- function(...) {
+  fs::path(sp_path(), paste("Datasets -", fs::path(...)))
 }
 
 #' @rdname sp_path
 #' @export
-sp_path <- function(path = NULL) {
-  paste(user_home(), "Center on Budget and Policy Priorities", path, sep = "/")
+od_path <- function(...) {
+  fs::path(Sys.getenv("OneDrive"), ...)
+}
+
+cbpp <- function() {
+  "Center on Budget and Policy Priorities"
 }
 
 
-user_home <- function() {
-  Sys.getenv("USERPROFILE")
-}

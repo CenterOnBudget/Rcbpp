@@ -1,160 +1,240 @@
 
-
-#' Compute basic weighted statistics
+#' Compute weighted statistics
 #'
-#' Functions for computing basic weighted statistics. These functions are
-#' designed to be strict, consistent, and useful within
-#' [dplyr::summarize()].
-#'
-#' If any `NA` values are present in `x` or `wt`, these functions
-#' will return `NA`.
-#'
-#' `wt` must not contain any negative values. `wt` may contain values
-#' of zero but must not only contain values of zero.
+#' @description
+#' - `wt_mean()` produces the weighted arithmetic mean.
+#' - `wt_sum()` produces the weighted sum.
+#' - `wt_quantile()` produces weighted sample quantiles corresponding to the
+#' given probabilities or, alternatively, number of quantiles.
+#' - `wt_median()` is a simple wrapper around `wt_quantile()` that produces
+#' the median.
 #'
 #' @param x A logical or numeric vector.
-#' @param wt A numeric vector of weights the same length as `x`.
-#' @param n A numeric vector of length one (i.e., a number) giving the number
-#'   of equally sized groups to split `x` into. Note that for `n`
-#'   groups, there are `n - 1` quantiles (i.e., cut points). Quantiles
-#'   currently supported include the median (`n = 2`), quartiles
-#'   (`n = 4`), quintiles (`n = 5`), deciles (`n = 10`), and
-#'   ventiles (`n = 20`).
-#' @return For all except `wt_quantile()`, a numeric vector of length
-#'   one.
+#' @param wt A numeric vector of frequency weights the same length as `x`.
+#'   Negative weights are not permitted.
+#' @param na.rm Should cases with `NA` values in `x` or `wt` be removed?
+#' @param n,probs Either of two arguments may be used to specify the quantiles
+#'   to be produced:
+#'   - `n`: A single integer giving the number of quantiles.
+#'   - `probs`: A numeric vector of probabilities with values greater than 0 and
+#'   less than 1.
+#' @param names If `TRUE`, the result will have [names] of the form
+#'   `paste0(round(probs * 100, 1), "%")`
 #'
-#'   For `wt_quantile()`, a named numeric vector of length `n - 1`
-#'   unless any `NA` values are present in `x` or `wt`, in which
-#'   case a numeric vector of length one (containing `NA`) is returned.
+#' @returns
+#' For all except [wt_quantile()], a numeric vector of length one.
+#' For [wt_quantile()]:
+#' - When the `n` argument is used, a numeric vector of length `n - 1`.
+#' - When the `probs` argument is used, a numeric vector of length
+#'   `length(probs)`.
+#'
+#' @details
+#' With `na.rm = TRUE`, only complete cases of `x` and `wt` are
+#' included in the calculation. This matches the behavior of
+#' [collapse::fast-statistical-functions] and [collapse::fquantile()], and
+#' deviates from the behavior of [stats::weighted.mean()] which always produces
+#' `NA` if there are any missing weights.
+#'
+#' Quantiles are computed using the type 2 quantile algorithm described in
+#' Hyndman and Fan (1996), which is Stata's default formula for percentiles.
+#'
+#' @references
+#' Hyndman, R. J. and Fan, Y. (1996) Sample quantiles in statistical
+#' packages, American Statistician 50, 361–365. doi:10.2307/2684934.
+#'
+#' StataCorp (2023) pctile — Create variable containing percentile, Stata 18
+#' Base Reference Manual, College Station, TX: Stata Press.
+#'
+#' @examples
+#' library(dplyr)
+#' cps %>%
+#'   summarize(
+#'     mean = wt_mean(ptotval, wt = marsupwt),
+#'     median = wt_median(ptotval, wt = marsupwt),
+#'     p75 = wt_quantile(ptotval, wt = marsupwt, probs = 0.75)
+#'   )
+#'
 #' @name wt_stats
+
 NULL
 
 
 #' @rdname wt_stats
 #' @export
-wt_sum <- function(x, wt) {
-  dry_run <- wt_stat_dry_run(x, wt)
+wt_sum <- function(x, wt, na.rm = FALSE) {
 
-  if (is.na(dry_run)) {
-    return(dry_run)
+  check_wt_inputs(x, wt, na.rm)
+
+  if (na.rm) {
+    complete_cases <- complete.cases(x, wt)
+    x <- x[complete_cases]
+    wt <- wt[complete_cases]
   }
 
   sum(x * wt)
+
 }
 
 
 #' @rdname wt_stats
 #' @export
-wt_mean <- function(x, wt) {
-  dry_run <- wt_stat_dry_run(x, wt)
+wt_mean <- function(x, wt, na.rm = FALSE) {
 
-  if (is.na(dry_run)) {
-    return(dry_run)
+  check_wt_inputs(x, wt, na.rm)
+
+  if (na.rm) {
+    complete_cases <- complete.cases(x, wt)
+    x <- x[complete_cases]
+    wt <- wt[complete_cases]
   }
 
-  sum(x * wt) / sum(wt)
+  weighted.mean(x, wt)
+
 }
 
 
-# References:
-# https://en.wikipedia.org/wiki/Weighted_median
-# https://www.stata.com/manuals/dpctile.pdf (page 11)
-# https://www.stata.com/manuals/rsummarize.pdf (pages 9-10)
-
 #' @rdname wt_stats
 #' @export
-wt_median <- function(x, wt) {
-  unname(wt_quantile(x, wt, n = 2))
+wt_median <- function(x, wt, na.rm = FALSE) {
+  wt_quantile(x = x, wt = wt, n = 2, na.rm = na.rm, names = FALSE)
 }
 
+
 #' @rdname wt_stats
 #' @export
-wt_quantile <- function(x, wt, n) {
+wt_quantile <- function(x, wt, n, probs, na.rm = FALSE, names = TRUE) {
 
-  # Check args -----------------------------------------------------------------
+  rlang::check_exclusive(n, probs)
 
-  dry_run <- wt_stat_dry_run(x, wt)
-
-  if (!is_number(n)) {
-    stop("`n` must be a number", call. = FALSE)
+  if (!missing(probs)) {
+    if (
+      !is.numeric(probs) ||
+      any(probs >= 1, probs <= 0, is.na(probs), is.null(probs), na.rm = TRUE)
+    ) {
+      cli::cli_abort(
+        "{.arg probs} must be a numeric vector with values greater than 0 and less than 1"
+      )
+    }
   }
 
-  if (n %!in% c(2, 4, 5, 10, 20)) {
-    stop("`n` must be 2, 4, 5, 10, or 20", call. = FALSE)
+  if (!missing(n)) {
+    if (!rlang::is_scalar_integerish(n, finite = TRUE)) {
+      cli::cli_abort(
+        "{.arg n} must be a single integer, not {.obj_type_friendly n}"
+      )
+    }
+    if ((n < 2) || (n > 100)) {
+      cli::cli_abort(
+        "{.arg n} must be between 2 and 100"
+      )
+    }
+    probs <- seq_len(n - 1) / n
   }
 
-  if (is.na(dry_run)) {
-    return(dry_run)
-  }
-
-  # Prep inputs ----------------------------------------------------------------
+  check_wt_inputs(x, wt, na.rm)
 
   if (is.logical(x)) {
     x <- as.integer(x)
   }
 
-  z <- wt == 0
-
-  if (any(z)) {
-    x <- x[!z]
-    wt <- wt[!z]
+  if (na.rm) {
+    # Drop cases with NA in x or wt
+    complete_cases <- complete.cases(x, wt)
+    x <- x[complete_cases]
+    wt <- wt[complete_cases]
   }
 
-  o <- order(x)
-  x <- x[o]
-  wt <- wt[o]
-
-  share <- wt / sum(wt)
-  cum_share <- cumsum(share)
-
-  # Get quantiles --------------------------------------------------------------
-
-  probs <- seq_len(n - 1) / n
-
+  # Initialize output vector
   q <- vector(mode = "numeric", length = length(probs))
-  names(q) <- paste0(round(probs * 100), "%")
 
-  for (k in seq_along(probs)) {
-    prob <- probs[k]
-    i <- match(TRUE, cum_share >= prob)
-
-    if (cum_share[i] == prob) {
-      q[k] <- (x[i] + x[i + 1]) / 2
-    } else {
-      q[k] <- x[i]
-    }
+  if (names) {
+    names(q) <- paste0(round(probs * 100), "%")
   }
 
-  # Return quantiles -----------------------------------------------------------
+  # Don't bother proceeding if there are NAs in x or wt; result will be NA
+  any_missing <- any(is.na(x), is.na(wt))
+  if (any_missing) {
+    q[] <- NA
+  }
+
+  if (!any_missing) {
+
+    # Drop cases with 0 wt
+    zero_weight <- wt == 0
+    if (any(zero_weight)) {
+      x <- x[!zero_weight]
+      wt <- wt[!zero_weight]
+    }
+
+    # Stata's default formula for percentiles is Hyndman and Fan (1996) type 2
+    # https://www.stata.com/manuals/dpctile.pdf#page=11
+
+    o <- order(x)
+    x <- x[o]
+    wt <- wt[o]
+
+    share <- wt / sum(wt)
+    cum_share <- cumsum(share)
+
+    for (k in seq_along(probs)) {
+      prob <- probs[k]
+      i <- match(TRUE, cum_share >= prob)
+      if (cum_share[i] == prob) {
+        q[k] <- (x[i] + x[i + 1]) / 2
+      } else {
+        q[k] <- x[i]
+      }
+    }
+
+  }
 
   q
+
 }
 
 
-wt_stat_dry_run <- function(x, wt) {
-  if (!is.logical(x) && !is.numeric(x)) {
-    stop("`x` must be a logical or numeric vector", call. = FALSE)
-  }
+check_wt_inputs <- function(x, wt, na.rm, call = rlang::caller_env()) {
 
+  if (!(is.numeric(x) | rlang::is_logical(x))) {
+    cli::cli_abort(
+      "{.arg x} must be a numeric or logical vector, not {.obj_type_friendly {x}}",
+      call = call
+    )
+  }
   if (!is.numeric(wt)) {
-    stop("`wt` must be a numeric vector", call. = FALSE)
+    cli::cli_abort(
+      "{.arg wt} must be a numeric vector, not {.obj_type_friendly {wt}}",
+      call = call
+    )
   }
-
   if (length(x) != length(wt)) {
-    stop("`x` and `wt` must be the same length", call. = FALSE)
+    cli::cli_abort(c(
+      "{.arg x} and {.arg wt} must be the same length",
+      "{.arg x} has length {length(x)} and {.arg wt} has length {length(wt)}"
+    ),
+    call = call
+    )
+  }
+  if (any(wt[!is.na(wt)] < 0)) {
+    cli::cli_abort(
+      "{.arg wt} may not contain negative values",
+      call = call
+
+    )
+  }
+  if (!na.rm) {
+    if (any(is.na(wt))) {
+      cli::cli_warn(c(
+        "{.arg wt} contains missing values; result will be `NA`",
+        "i" = "Set {.arg na.rm = TRUE} to remove cases with `NA` values in {.arg wt} or {.arg x}"
+      ))
+    }
+    if (any(is.na(x))) {
+      cli::cli_warn(c(
+        "{.arg x} contains missing values; result will be `NA`",
+        "i" = "Set {.arg na.rm = TRUE} to remove cases with `NA` values in {.arg x} or {.arg wt}"
+      ))
+    }
   }
 
-  if (any(is.na(x)) || any(is.na(wt))) {
-    return(NA_integer_)
-  }
-
-  if (any(wt < 0)) {
-    stop("`wt` must not contain any negative values", call. = FALSE)
-  }
-
-  if (sum(wt) == 0) {
-    stop("`wt` must not only contain values of zero", call. = FALSE)
-  }
-
-  0L # Arbitrary non-`NA` integer
 }
