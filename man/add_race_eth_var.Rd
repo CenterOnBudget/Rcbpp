@@ -43,12 +43,12 @@ to present are supported and required variables are \code{prdtrace} and
 \examples{
 library(dplyr)
 
-acs \%>\%
-  select(rac1p, hisp) \%>\%
+acs |>
+  select(rac1p, hisp) |>
   add_race_eth_var(dataset = "acs")
 
-cps \%>\%
-  select(prdtrace, pehspnon) \%>\%
+cps |>
+  select(prdtrace, pehspnon) |>
   add_race_eth_var(dataset = "cps_asec", name = race_category)
 
 }

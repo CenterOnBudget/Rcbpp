@@ -29,8 +29,8 @@
 #'   `length(probs)`.
 #'
 #' @details
-#' With `na.rm = TRUE`, only complete cases of `x` and `wt` are
-#' included in the calculation. This matches the behavior of
+#' With `na.rm = TRUE`, only complete cases of `x` and `wt` are included in the
+#' calculation. This matches the behavior of
 #' [collapse::fast-statistical-functions] and [collapse::fquantile()], and
 #' deviates from the behavior of [stats::weighted.mean()] which always produces
 #' `NA` if there are any missing weights.
@@ -39,15 +39,16 @@
 #' Hyndman and Fan (1996), which is Stata's default formula for percentiles.
 #'
 #' @references
-#' Hyndman, R. J. and Fan, Y. (1996) Sample quantiles in statistical
-#' packages, American Statistician 50, 361–365. doi:10.2307/2684934.
+#' Hyndman, R. J. and Fan, Y. (1996) Sample quantiles in statistical packages,
+#' American Statistician 50, 361–365. doi:10.2307/2684934.
 #'
 #' StataCorp (2023) pctile — Create variable containing percentile, Stata 18
 #' Base Reference Manual, College Station, TX: Stata Press.
 #'
 #' @examples
 #' library(dplyr)
-#' cps %>%
+#'
+#' cps |>
 #'   summarize(
 #'     mean = wt_mean(ptotval, wt = marsupwt),
 #'     median = wt_median(ptotval, wt = marsupwt),

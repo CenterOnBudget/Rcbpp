@@ -1,5 +1,4 @@
 
-library(readxl)
 library(dplyr)
 
 user_email <- paste0(fs::path_file(Sys.getenv("USERPROFILE")), "@cbpp.org")
@@ -12,11 +11,11 @@ download.file(
   headers = c("User-Agent" = user_email)
 )
 
-raw_cpi_u_rs <- read_xlsx("data-raw/cpi_u_rs.xlsx", skip = 5)
+raw_cpi_u_rs <- readxl::read_xlsx("data-raw/cpi_u_rs.xlsx", skip = 5)
 
-cpi_u_rs <- raw_cpi_u_rs %>%
-  rename_with(tolower) %>%
-  select(year, cpi_u_rs = avg) %>%
+cpi_u_rs <- raw_cpi_u_rs |>
+  rename_with(tolower) |>
+  select(year, cpi_u_rs = avg) |>
   filter(year >= 1978)
 
 usethis::use_data(cpi_u_rs, overwrite = TRUE)
