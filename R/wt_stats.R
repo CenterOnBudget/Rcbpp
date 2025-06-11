@@ -4,10 +4,11 @@
 #' @description
 #' - `wt_mean()` produces the weighted arithmetic mean.
 #' - `wt_sum()` produces the weighted sum.
-#' - `wt_quantile()` produces weighted sample quantiles corresponding to the
-#' given probabilities or, alternatively, number of quantiles.
 #' - `wt_median()` is a simple wrapper around `wt_quantile()` that produces
 #' the median.
+#' - `wt_quantile()` and `wt_quantiles_df()` produce weighted sample quantiles
+#' corresponding to the given probabilities or, alternatively, number of
+#' quantiles.
 #'
 #' @param x A logical or numeric vector.
 #' @param wt A numeric vector of frequency weights the same length as `x`.
@@ -22,11 +23,12 @@
 #'   `paste0(round(probs * 100, 1), "%")`
 #'
 #' @returns
-#' For all except [wt_quantile()], a numeric vector of length one.
-#' For [wt_quantile()]:
-#' - When the `n` argument is used, a numeric vector of length `n - 1`.
-#' - When the `probs` argument is used, a numeric vector of length
-#'   `length(probs)`.
+#' - `wt_sum()`, `wt_mean()`, and `wt_median()`: A numeric vector of length one.
+#' - `wt_quantile()`: When the `n` argument is used, a numeric vector of length
+#' `n - 1`. When the `probs` argument is used, a numeric vector of length
+#' `length(probs)`.
+#' - `wt_quantile_df()`: A tibble with two columns: `prob` for the probability
+#' and `val` for the sample quantile of `x` corresponding to `prob`.
 #'
 #' @details
 #' With `na.rm = TRUE`, only complete cases of `x` and `wt` are included in the
@@ -53,6 +55,12 @@
 #'     mean = wt_mean(ptotval, wt = marsupwt),
 #'     median = wt_median(ptotval, wt = marsupwt),
 #'     p75 = wt_quantile(ptotval, wt = marsupwt, probs = 0.75)
+#'   )
+#'
+#' # `wt_quantiles_df()` is designed for use with `dplyr::reframe()`
+#' acs |>
+#'   reframe(
+#'     wt_quantile_df(agep, wt = pwgtp, n = 4)
 #'   )
 #'
 #' @name wt_stats
@@ -190,6 +198,27 @@ wt_quantile <- function(x, wt, n, probs, na.rm = FALSE, names = TRUE) {
   }
 
   q
+
+}
+
+
+#' @rdname wt_stats
+#' @export
+wt_quantile_df <- function(x, wt, n, probs, na.rm = FALSE) {
+
+  q <- wt_quantile(
+    x = x,
+    wt = wt,
+    n = n,
+    probs = probs,
+    na.rm = na.rm,
+    names = TRUE
+  )
+
+  tibble::tibble(
+    prob = as.numeric(substr(names(q), 1, nchar(names(q)) - 1))  / 100,
+    value = unname(q)
+  )
 
 }
 
