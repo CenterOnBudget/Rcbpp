@@ -10,7 +10,7 @@ Description: Useful R functions for CBPP researchers.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/CenterOnBudget/Rcbpp
+URL: https://centeronbudget.github.io/Rcbpp, https://github.com/centeronbudget/Rcbpp
 Imports: 
     cli,
     dplyr,

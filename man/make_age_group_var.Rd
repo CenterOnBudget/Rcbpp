@@ -18,10 +18,10 @@ or \code{"cps_basic"}.}
 A data frame.
 }
 \description{
-#' @description
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 This function has been replaced by \code{\link[=add_age_group_var]{add_age_group_var()}}, a nearly-drop-in
-replacement.
+replacement, and no longer works.
 }
 \seealso{
 \code{\link[=add_age_group_var]{add_age_group_var()}}

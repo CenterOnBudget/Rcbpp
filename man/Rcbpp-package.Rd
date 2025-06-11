@@ -11,7 +11,8 @@ Useful R functions for CBPP researchers.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/CenterOnBudget/Rcbpp}
+  \item \url{https://centeronbudget.github.io/Rcbpp}
+  \item \url{https://github.com/centeronbudget/Rcbpp}
 }
 
 }

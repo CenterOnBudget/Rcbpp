@@ -3,7 +3,7 @@
 \docType{data}
 \name{acs}
 \alias{acs}
-\title{ACS microdata}
+\title{Toy ACS microdata}
 \format{
 A data frame 200 rows and 9 columns:
 \describe{

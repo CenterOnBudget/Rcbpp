@@ -4,7 +4,7 @@
 \name{cps}
 \alias{cps}
 \alias{cps_unzapped}
-\title{CPS ASEC microdata}
+\title{Toy CPS ASEC microdata}
 \format{
 \code{cps} is a data frame 200 rows and 8 columns, all numeric:
 \describe{

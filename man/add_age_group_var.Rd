@@ -25,8 +25,12 @@ race/ethnicity variable.
 }
 \description{
 \code{add_age_group_var()} adds a 3-level age group variable to a
-data frame of ACS, CPS ASEC, or basic monthly CPS microdata. Levels are: 1.
-Under 18 1. 18 to 64 1. 65 and over
+data frame of ACS, CPS ASEC, or basic monthly CPS microdata. Levels are:
+\enumerate{
+\item Under 18
+\item 18 to 64
+\item 65 and over
+}
 }
 \details{
 For the ACS, years 2005 to present are supported and the required

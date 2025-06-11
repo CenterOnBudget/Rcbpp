@@ -54,7 +54,6 @@ sp_cps_basic <- function(y, m, f) {
 #' Install the path to your Stata executable in your `.Renviron` file
 #'
 #' @description
-#'
 #' `r lifecycle::badge("deprecated")`
 #'
 #' This function is deprecated as we no longer want to programmatically modify
@@ -87,8 +86,9 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' This function has been replaced by [add_race_eth_var()], a nearly-drop-in
-#' replacement.
+#' replacement, and no longer works.
 #'
 #' @param df Data frame to add race/ethnicity variable to.
 #' @param dataset Dataset corresponding to `df`. One of `"acs"`, `"cps_asec"`,
@@ -114,10 +114,11 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 
 #' Make an age group variable
 #'
-#' #' @description
+#' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' This function has been replaced by [add_age_group_var()], a nearly-drop-in
-#' replacement.
+#' replacement, and no longer works.
 #'
 #' @param df Data frame to add age group variable to.
 #' @param name Name to give age group variable. Defaults to `"age_group"`.

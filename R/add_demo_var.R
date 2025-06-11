@@ -4,6 +4,7 @@
 #' @description
 #' `add_race_eth_var()` adds a 5-level race/ethnicity variable to a data frame
 #' of ACS, CPS ASEC, or basic monthly CPS microdata. Levels are:
+#'
 #' 1. White alone, not Latino
 #' 1. Black alone, not Latino
 #' 1. Latino (of any race)
@@ -104,8 +105,11 @@ add_race_eth_var <- function(
 #'
 #' @description
 #' `add_age_group_var()` adds a 3-level age group variable to a
-#' data frame of ACS, CPS ASEC, or basic monthly CPS microdata. Levels are: 1.
-#' Under 18 1. 18 to 64 1. 65 and over
+#' data frame of ACS, CPS ASEC, or basic monthly CPS microdata. Levels are:
+#'
+#' 1. Under 18
+#' 1. 18 to 64
+#' 1. 65 and over
 #'
 #' @details
 #' For the ACS, years 2005 to present are supported and the required

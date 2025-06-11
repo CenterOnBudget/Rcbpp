@@ -43,7 +43,7 @@
 "cpi_u_rs"
 
 
-#' ACS microdata
+#' Toy ACS microdata
 #'
 #' A toy version of ACS microdata with 200 random person
 #' observations.
@@ -70,7 +70,7 @@
 
 "acs"
 
-#' CPS ASEC microdata
+#' Toy CPS ASEC microdata
 #'
 #' Two toy versions of CPS ASEC microdata with 200 random person observations:
 #' - In `cps_unzapped`, all variables are exactly as imported from a Stata DTA
