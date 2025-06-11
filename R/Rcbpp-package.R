@@ -7,6 +7,5 @@
 #' @importFrom rlang :=
 #' @importFrom stats complete.cases
 #' @importFrom stats weighted.mean
-#' @importFrom tibble tibble
 ## usethis namespace: end
 NULL
