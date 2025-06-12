@@ -19,8 +19,12 @@
 #'   - `n`: A single integer giving the number of quantiles.
 #'   - `probs`: A numeric vector of probabilities with values greater than 0 and
 #'   less than 1.
-#' @param names If `TRUE`, the result will have [names] of the form
-#'   `paste0(round(probs * 100, 1), "%")`
+#' @param names If `TRUE`, the result will have [names] of the form specified in
+#'   `names_format`.
+#' @param names_format A function or formula to transform the probabilities into
+#'   a vector of names. Default is `\(p) paste0(round(p * 100, 1), "%")`. Only
+#'   used when `names` is `TRUE`.
+#'
 #'
 #' @returns
 #' - `wt_sum()`, `wt_mean()`, and `wt_median()`: A numeric vector of length one.
@@ -111,7 +115,15 @@ wt_median <- function(x, wt, na.rm = FALSE) {
 
 #' @rdname wt_stats
 #' @export
-wt_quantile <- function(x, wt, n, probs, na.rm = FALSE, names = TRUE) {
+wt_quantile <- function(
+    x,
+    wt,
+    n,
+    probs,
+    na.rm = FALSE,
+    names = TRUE,
+    names_format = \(p) paste0(round(p * 100), "%")
+) {
 
   rlang::check_exclusive(n, probs)
 
@@ -156,9 +168,6 @@ wt_quantile <- function(x, wt, n, probs, na.rm = FALSE, names = TRUE) {
   # Initialize output vector
   q <- vector(mode = "numeric", length = length(probs))
 
-  if (names) {
-    names(q) <- paste0(round(probs * 100), "%")
-  }
 
   # Don't bother proceeding if there are NAs in x or wt; result will be NA
   any_missing <- any(is.na(x), is.na(wt))
@@ -197,6 +206,22 @@ wt_quantile <- function(x, wt, n, probs, na.rm = FALSE, names = TRUE) {
 
   }
 
+  if (names) {
+
+    names_format <- rlang::as_function(names_format)
+
+    nms <- names_format(probs)
+
+    if (length(nms) != length(probs)) {
+      cli::cli_abort(
+        "{.arg names_format} must return a vector the same length as {.arg probs}"
+      )
+    }
+
+    names(q) <- nms
+
+  }
+
   q
 
 }
@@ -206,18 +231,22 @@ wt_quantile <- function(x, wt, n, probs, na.rm = FALSE, names = TRUE) {
 #' @export
 wt_quantile_df <- function(x, wt, n, probs, na.rm = FALSE) {
 
-  q <- wt_quantile(
+  quantiles <- wt_quantile(
     x = x,
     wt = wt,
     n = n,
     probs = probs,
     na.rm = na.rm,
-    names = TRUE
+    names = FALSE
   )
 
+  if (!rlang::is_missing(n)) {
+    probs <- seq_len(n - 1) / n
+  }
+
   tibble::tibble(
-    prob = as.numeric(substr(names(q), 1, nchar(names(q)) - 1))  / 100,
-    value = unname(q)
+    prob = probs,
+    value = quantiles
   )
 
 }
@@ -253,18 +282,18 @@ check_wt_inputs <- function(x, wt, na.rm, call = rlang::caller_env()) {
     )
   }
   if (!na.rm) {
-    if (any(is.na(wt))) {
+
+    x_has_na <- any(is.na(x))
+    wt_has_na <- any(is.na(wt))
+    na_args <- c("x", "wt")[c(x_has_na, wt_has_na)]
+
+    if (x_has_na || wt_has_na) {
       cli::cli_warn(c(
-        "{.arg wt} contains missing values; result will be `NA`",
-        "i" = "Set {.arg na.rm = TRUE} to remove cases with `NA` values in {.arg wt} or {.arg x}"
-      ))
-    }
-    if (any(is.na(x))) {
-      cli::cli_warn(c(
-        "{.arg x} contains missing values; result will be `NA`",
+        "{.arg {na_args}} contain{?s/} missing values; result will be `NA`",
         "i" = "Set {.arg na.rm = TRUE} to remove cases with `NA` values in {.arg x} or {.arg wt}"
       ))
     }
+
   }
 
 }

@@ -15,7 +15,15 @@ wt_mean(x, wt, na.rm = FALSE)
 
 wt_median(x, wt, na.rm = FALSE)
 
-wt_quantile(x, wt, n, probs, na.rm = FALSE, names = TRUE)
+wt_quantile(
+  x,
+  wt,
+  n,
+  probs,
+  na.rm = FALSE,
+  names = TRUE,
+  names_format = function(p) paste0(round(p * 100), "\%")
+)
 
 wt_quantile_df(x, wt, n, probs, na.rm = FALSE)
 }
@@ -35,8 +43,12 @@ to be produced:
 less than 1.
 }}
 
-\item{names}{If \code{TRUE}, the result will have \link{names} of the form
-\code{paste0(round(probs * 100, 1), "\%")}}
+\item{names}{If \code{TRUE}, the result will have \link{names} of the form specified in
+\code{names_format}.}
+
+\item{names_format}{A function or formula to transform the probabilities into
+a vector of names. Default is \verb{\\(p) paste0(round(p * 100, 1), "\%")}. Only
+used when \code{names} is \code{TRUE}.}
 }
 \value{
 \itemize{
