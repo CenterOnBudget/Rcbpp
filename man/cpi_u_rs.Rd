@@ -23,6 +23,5 @@ calendar year averages.
 }
 \examples{
 cpi_u_rs
-
 }
 \keyword{datasets}

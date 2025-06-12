@@ -1,12 +1,10 @@
-
 #' State FIPS codes
 #'
 #' A dataset containing state FIPS codes along with corresponding state names
 #' and postal abbreviations. State equivalents (U.S. territories, outlying
 #' areas, and Freely Associated States) are included.
 #'
-#' @format
-#' A data frame with 57 rows and 3 columns:
+#' @format A data frame with 57 rows and 3 columns:
 #' \describe{
 #'   \item{state_fips}{State FIPS code (numeric)}
 #'   \item{state_abbrv}{State postal abbreviation (factor)}
@@ -17,7 +15,6 @@
 #'
 #' @examples
 #' state_fips
-#'
 
 "state_fips"
 
@@ -27,8 +24,7 @@
 #' A dataset containing all available R-CPI-U-RS (formerly known as CPI-U-RS)
 #' calendar year averages.
 #'
-#' @format
-#' A data frame with 2 columns:
+#' @format A data frame with 2 columns:
 #' \describe{
 #'   \item{year}{Year}
 #'   \item{cpi_u_rs}{Annual average R-CPI-U-RS}
@@ -38,15 +34,13 @@
 #'
 #' @examples
 #' cpi_u_rs
-#'
 
 "cpi_u_rs"
 
 
 #' Toy ACS microdata
 #'
-#' A toy version of ACS microdata with 200 random person
-#' observations.
+#' A toy version of ACS microdata with 200 random person observations.
 #'
 #' @format A data frame 200 rows and 9 columns:
 #' \describe{
@@ -66,7 +60,6 @@
 #'
 #' @examples
 #' acs
-#'
 
 "acs"
 
@@ -74,11 +67,11 @@
 #'
 #' Two toy versions of CPS ASEC microdata with 200 random person observations:
 #' - In `cps_unzapped`, all variables are exactly as imported from a Stata DTA
-#'   format file, with labels intact.
+#' format file, with labels intact.
 #' - In `cps`, all variables are numeric (a "zapped" version of `cps_unzapped`).
 #'
 #' @source U.S. Census Bureau's March 2024 Current Population Survey Annual
-#'   Social and Economic Supplement microdata, via CBPP datasets library
+#' Social and Economic Supplement microdata, via CBPP datasets library
 #'
 #' @seealso [zap_stata()]
 #'
@@ -97,7 +90,6 @@
 #'   \item{ptotval}{Total person's income}
 #'   \item{marsupwt}{Person weight}
 #' }
-#'
 
 "cps"
 
@@ -115,7 +107,5 @@
 #' }
 #'
 #' @rdname cps
-#'
 
 "cps_unzapped"
-

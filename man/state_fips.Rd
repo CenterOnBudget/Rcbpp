@@ -25,6 +25,5 @@ areas, and Freely Associated States) are included.
 }
 \examples{
 state_fips
-
 }
 \keyword{datasets}

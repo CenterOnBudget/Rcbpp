@@ -1,4 +1,3 @@
-
 #' Convert state FIPS codes to a labeled factor
 #'
 #' Convert a vector of state FIPS codes into a factor labeled by state name or
@@ -16,8 +15,6 @@
 #' @seealso [state_fips] for a dataset containing state FIPS codes, state names,
 #'   and postal abbreviations.
 #'
-#' @export
-#'
 #' @examples
 #' fips <- c(1, 6, 11, 48)
 #' fct_statefips(fips)
@@ -30,17 +27,17 @@
 #' # Resulting levels may be restricted to those present in the input
 #' fct_statefips(fips, drop_unused = TRUE)
 #'
+#' @export
 
 fct_statefips <- function(x, labels = c("name", "abbrv"), drop_unused = FALSE) {
-
   labels <- rlang::arg_match(labels)
 
   if (!(rlang::is_integerish(x) | rlang::is_character(x))) {
-      cli::cli_abort(c(
-        "{.arg x} must be an integer or character vector.",
-        "x" = "{.arg x} is {.obj_type_friendly {x}}."
-      ))
-    }
+    cli::cli_abort(c(
+      "{.arg x} must be an integer or character vector.",
+      "x" = "{.arg x} is {.obj_type_friendly {x}}."
+    ))
+  }
 
   if (identical(labels, "name")) {
     lbls <- Rcbpp::state_fips$state_name
@@ -62,5 +59,4 @@ fct_statefips <- function(x, labels = c("name", "abbrv"), drop_unused = FALSE) {
   }
 
   f
-
 }

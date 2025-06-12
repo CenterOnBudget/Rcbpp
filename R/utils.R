@@ -1,6 +1,7 @@
-
 check_data_frame <- function(
-    x, arg = rlang::caller_arg(x), call = rlang::caller_env()
+  x,
+  arg = rlang::caller_arg(x),
+  call = rlang::caller_env()
 ) {
   if (!is.data.frame(x)) {
     cli::cli_abort(

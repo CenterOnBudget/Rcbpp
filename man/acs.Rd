@@ -26,11 +26,9 @@ CBPP datasets library (parquet format)
 acs
 }
 \description{
-A toy version of ACS microdata with 200 random person
-observations.
+A toy version of ACS microdata with 200 random person observations.
 }
 \examples{
 acs
-
 }
 \keyword{datasets}

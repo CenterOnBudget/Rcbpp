@@ -1,4 +1,3 @@
-
 library(dplyr)
 
 if (!file.exists("data-raw/state_fips.txt")) {

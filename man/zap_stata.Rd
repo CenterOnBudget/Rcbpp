@@ -16,8 +16,8 @@ please use \code{data} instead.}
 The input data frame sans Stata attributes.
 }
 \description{
-\code{zap_stata()} removes all Stata attributes from a data frame
-returned by \code{\link[haven:read_dta]{haven::read_dta()}}. Specifically, it:
+\code{zap_stata()} removes all Stata attributes from a data frame returned by
+\code{\link[haven:read_dta]{haven::read_dta()}}. Specifically, it:
 \itemize{
 \item Removes variable labels, value labels, format attributes, and display
 width attributes from all variables

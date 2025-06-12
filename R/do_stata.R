@@ -1,8 +1,7 @@
-
 #' Run a Stata .do file in batch mode
 #'
 #' @description
-#' `do_stata()` calls Stata to run a specified `.do` file in  [batch
+#' `do_stata()` calls Stata to run a specified `.do` file in [batch
 #' mode](https://www.stata.com/support/faqs/windows/batch-mode/).
 #'
 #' @details
@@ -23,16 +22,13 @@
 #' `do_stata()` will **not** throw an error if the `.do` file code errors out in
 #' Stata. Stata output and any error messages can be found in the `.log` file.
 #'
-#'
 #' @param file Path to a Stata `.do` file.
 #' @param wd Working directory in which to run the `.do` file. Defaults to the
 #'   current working directory.
-#' @param stata_exe Path to your Stata executable. If `NULL`, the default,
-#'   the STATA_EXE environment variable is used.
+#' @param stata_exe Path to your Stata executable. If `NULL`, the default, the
+#'   STATA_EXE environment variable is used.
 #'
 #' @returns Path to the Stata `.do` file, invisibly.
-#'
-#' @export
 #'
 #' @examplesIf FALSE
 #' # Specify the Stata executable
@@ -41,9 +37,9 @@
 #' # After storing the Stata executable in `.Renviron`
 #' do_stata("script.do")
 #'
+#' @export
 
 do_stata <- function(file, wd = NULL, stata_exe = NULL) {
-
   if (!fs::file_exists(file)) {
     cli::cli_abort("{.val {file}} does not exist.")
   }
@@ -61,7 +57,6 @@ do_stata <- function(file, wd = NULL, stata_exe = NULL) {
   }
 
   if (rlang::is_null(stata_exe)) {
-
     stata_exe <- Sys.getenv("STATA_EXE")
 
     if (identical(stata_exe, "")) {
@@ -69,8 +64,8 @@ do_stata <- function(file, wd = NULL, stata_exe = NULL) {
         "Stata executable not specified.",
         "To specify the path your Stata executable:",
         "*" = "Supply the path to {.arg stata_exe}",
-        "*" = "Add {.field STATA_EXE='path_to_your_stata_executable'} to your {.code .Renviron} file.",  # nolint
-        " " = "Edit your {.code .Renviron} file with {.run usethis::edit_r_environ()}."  # nolint
+        "*" = "Add {.field STATA_EXE='path_to_your_stata_executable'} to your {.code .Renviron} file.",
+        " " = "Edit your {.code .Renviron} file with {.run usethis::edit_r_environ()}."
       ))
     }
   }
@@ -96,6 +91,4 @@ do_stata <- function(file, wd = NULL, stata_exe = NULL) {
   )
 
   invisible(file)
-
 }
-

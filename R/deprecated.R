@@ -1,4 +1,3 @@
-
 #' Create paths to files in a synced datasets library
 #'
 #' @description
@@ -16,7 +15,6 @@
 #' @name sp_data
 #'
 #' @keywords internal
-#'
 
 NULL
 
@@ -69,16 +67,13 @@ sp_cps_basic <- function(y, m, f) {
 #' @keywords internal
 #'
 #' @export
-#'
 
 stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
-
   lifecycle::deprecate_stop(
     when = "1.0.0",
     what = "stata_exe()",
     details = "Please DIY with {.fun usethis::edit_r_environ} instead"
   )
-
 }
 
 
@@ -103,13 +98,11 @@ stata_exe <- function(path, install = FALSE, overwrite = FALSE) {
 #' @export
 
 make_race_eth_var <- function(df, dataset, name = "race_eth") {
-
   lifecycle::deprecate_stop(
     "1.0.0",
     "make_race_eth_var()",
     "add_race_eth_var()"
   )
-
 }
 
 #' Make an age group variable
@@ -133,11 +126,9 @@ make_race_eth_var <- function(df, dataset, name = "race_eth") {
 #' @export
 
 make_age_group_var <- function(df, dataset, name = "age_group") {
-
   lifecycle::deprecate_stop(
     "1.0.0",
     "make_age_group_var()",
     "add_age_group_var()"
   )
-
 }

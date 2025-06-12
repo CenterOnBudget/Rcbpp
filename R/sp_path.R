@@ -1,4 +1,3 @@
-
 #' Create a path within SharePoint and OneDrive directories
 #'
 #' @description
@@ -8,8 +7,8 @@
 #' - `sp_path()` constructs a path to the user's SharePoint directory.
 #' - `od_path()` constructs a path to the user's OneDrive directory.
 #' - `sp_data_path()` is used to construct paths to datasets library folders
-#'    within the user's SharePoint directory. For example, `sp_data_path("ACS",
-#'    "2023")` is equivalent to `sp_path("Datasets - ACS", "2023")`
+#' within the user's SharePoint directory. For example, `sp_data_path("ACS",
+#' "2023")` is equivalent to `sp_path("Datasets - ACS", "2023")`
 #'
 #' @param ... Additional paths appended to the directory by [fs::path()].
 #'
@@ -17,9 +16,7 @@
 #'
 #' @examplesIf interactive()
 #' sp_path()
-#'
 #' od_path("my_folder/my_file.csv")
-#'
 #' sp_data_path("CPS-BASIC", "2023", paste0(tolower(month.abb), "23pub.dta"))
 #'
 #' @name sp_path
@@ -48,5 +45,3 @@ od_path <- function(...) {
 cbpp <- function() {
   "Center on Budget and Policy Priorities"
 }
-
-

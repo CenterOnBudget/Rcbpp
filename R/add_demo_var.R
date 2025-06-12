@@ -1,4 +1,3 @@
-
 #' Add a categorical race/ethnicity variable to ACS or CPS microdata
 #'
 #' @description
@@ -24,7 +23,7 @@
 #'   Default is `"race_eth"`.
 #'
 #' @returns An object of the same type as `data`, with a new column for the
-#'   race/ethnicity variable.
+#' race/ethnicity variable.
 #'
 #' @examples
 #' library(dplyr)
@@ -38,14 +37,12 @@
 #'   add_race_eth_var(dataset = "cps_asec", name = race_category)
 #'
 #' @export
-#'
 
 add_race_eth_var <- function(
-    data,
-    dataset = c("acs", "cps_asec", "cps_basic"),
-    name = "race_eth"
+  data,
+  dataset = c("acs", "cps_asec", "cps_basic"),
+  name = "race_eth"
 ) {
-
   check_data_frame(data)
 
   dataset <- rlang::arg_match(dataset)
@@ -69,7 +66,6 @@ add_race_eth_var <- function(
     hisp_var = "pehspnon"
     race_vals = c(white = 1, black = 2, asian = 4)
     hisp_vals = 1
-
   }
 
   race_eth_lbl <- c(
@@ -97,7 +93,6 @@ add_race_eth_var <- function(
       NA
     )
   )
-
 }
 
 
@@ -135,14 +130,12 @@ add_race_eth_var <- function(
 #'   add_age_group_var(dataset = "cps_asec", name = agecat3)
 #'
 #' @export
-#'
 
 add_age_group_var <- function(
-    data,
-    dataset = c("acs", "cps_asec", "cps_basic"),
-    name = "age_group"
+  data,
+  dataset = c("acs", "cps_asec", "cps_basic"),
+  name = "age_group"
 ) {
-
   check_data_frame(data)
 
   dataset <- rlang::arg_match(dataset)
@@ -165,5 +158,4 @@ add_age_group_var <- function(
       labels = c("Under 18", "18 to 64", "65 and over")
     )
   )
-
 }

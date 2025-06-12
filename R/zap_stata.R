@@ -1,12 +1,11 @@
-
 #' Remove all Stata dataset attributes from a data frame
 #'
 #' @description
-#' `zap_stata()` removes all Stata attributes from a data frame
-#' returned by [haven::read_dta()]. Specifically, it:
+#' `zap_stata()` removes all Stata attributes from a data frame returned by
+#' [haven::read_dta()]. Specifically, it:
 #'
 #' - Removes variable labels, value labels, format attributes, and display
-#'   width attributes from all variables
+#' width attributes from all variables
 #' - Removes dataset label and notes
 #' - Converts all tagged missing values to regular R NA
 #'
@@ -31,12 +30,10 @@
 #' attr(cps_zapped, "label")
 #'
 #' @export
-#'
 
 # Adapted from haven::zap_*() family of functions
 
 zap_stata <- function(data, df = deprecated()) {
-
   if (lifecycle::is_present(df)) {
     lifecycle::deprecate_warn("1.0.0", "zap_stata(df)", "zap_stata(data)")
     data <- df
@@ -44,17 +41,15 @@ zap_stata <- function(data, df = deprecated()) {
 
   check_data_frame(data)
 
-  attr(data, "notes") <-  NULL
+  attr(data, "notes") <- NULL
   attr(data, "label") <- NULL
 
   data[] <- lapply(data, zap_stata_vec)
   data
-
 }
 
 
 zap_stata_vec <- function(x) {
-
   if (inherits(x, "haven_labelled")) {
     attr(x, "labels") <- NULL
     class(x) <- NULL
@@ -66,5 +61,4 @@ zap_stata_vec <- function(x) {
   attr(x, "display_width") <- NULL
 
   x
-
 }

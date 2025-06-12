@@ -1,4 +1,3 @@
-
 #' Compute weighted statistics
 #'
 #' @description
@@ -24,7 +23,6 @@
 #' @param names_format A function or formula to transform the probabilities into
 #'   a vector of names. Default is `\(p) paste0(round(p * 100, 1), "%")`. Only
 #'   used when `names` is `TRUE`.
-#'
 #'
 #' @returns
 #' - `wt_sum()`, `wt_mean()`, and `wt_median()`: A numeric vector of length one.
@@ -75,7 +73,6 @@ NULL
 #' @rdname wt_stats
 #' @export
 wt_sum <- function(x, wt, na.rm = FALSE) {
-
   check_wt_inputs(x, wt, na.rm)
 
   if (na.rm) {
@@ -85,14 +82,12 @@ wt_sum <- function(x, wt, na.rm = FALSE) {
   }
 
   sum(x * wt)
-
 }
 
 
 #' @rdname wt_stats
 #' @export
 wt_mean <- function(x, wt, na.rm = FALSE) {
-
   check_wt_inputs(x, wt, na.rm)
 
   if (na.rm) {
@@ -102,7 +97,6 @@ wt_mean <- function(x, wt, na.rm = FALSE) {
   }
 
   weighted.mean(x, wt)
-
 }
 
 
@@ -116,21 +110,20 @@ wt_median <- function(x, wt, na.rm = FALSE) {
 #' @rdname wt_stats
 #' @export
 wt_quantile <- function(
-    x,
-    wt,
-    n,
-    probs,
-    na.rm = FALSE,
-    names = TRUE,
-    names_format = \(p) paste0(round(p * 100), "%")
+  x,
+  wt,
+  n,
+  probs,
+  na.rm = FALSE,
+  names = TRUE,
+  names_format = \(p) paste0(round(p * 100), "%")
 ) {
-
   rlang::check_exclusive(n, probs)
 
   if (!missing(probs)) {
     if (
       !is.numeric(probs) ||
-      any(probs >= 1, probs <= 0, is.na(probs), is.null(probs), na.rm = TRUE)
+        any(probs >= 1, probs <= 0, is.na(probs), is.null(probs), na.rm = TRUE)
     ) {
       cli::cli_abort(
         "{.arg probs} must be a numeric vector with values greater than 0 and less than 1"
@@ -168,7 +161,6 @@ wt_quantile <- function(
   # Initialize output vector
   q <- vector(mode = "numeric", length = length(probs))
 
-
   # Don't bother proceeding if there are NAs in x or wt; result will be NA
   any_missing <- any(is.na(x), is.na(wt))
   if (any_missing) {
@@ -176,7 +168,6 @@ wt_quantile <- function(
   }
 
   if (!any_missing) {
-
     # Drop cases with 0 wt
     zero_weight <- wt == 0
     if (any(zero_weight)) {
@@ -203,11 +194,9 @@ wt_quantile <- function(
         q[k] <- x[i]
       }
     }
-
   }
 
   if (names) {
-
     names_format <- rlang::as_function(names_format)
 
     nms <- names_format(probs)
@@ -219,18 +208,15 @@ wt_quantile <- function(
     }
 
     names(q) <- nms
-
   }
 
   q
-
 }
 
 
 #' @rdname wt_stats
 #' @export
 wt_quantile_df <- function(x, wt, n, probs, na.rm = FALSE) {
-
   quantiles <- wt_quantile(
     x = x,
     wt = wt,
@@ -248,12 +234,10 @@ wt_quantile_df <- function(x, wt, n, probs, na.rm = FALSE) {
     prob = probs,
     value = quantiles
   )
-
 }
 
 
 check_wt_inputs <- function(x, wt, na.rm, call = rlang::caller_env()) {
-
   if (!(is.numeric(x) | rlang::is_logical(x))) {
     cli::cli_abort(
       "{.arg x} must be a numeric or logical vector, not {.obj_type_friendly {x}}",
@@ -267,22 +251,18 @@ check_wt_inputs <- function(x, wt, na.rm, call = rlang::caller_env()) {
     )
   }
   if (length(x) != length(wt)) {
-    cli::cli_abort(c(
+    cli::cli_abort(
       "{.arg x} and {.arg wt} must be the same length",
-      "{.arg x} has length {length(x)} and {.arg wt} has length {length(wt)}"
-    ),
-    call = call
+      call = call
     )
   }
   if (any(wt[!is.na(wt)] < 0)) {
     cli::cli_abort(
       "{.arg wt} may not contain negative values",
       call = call
-
     )
   }
   if (!na.rm) {
-
     x_has_na <- any(is.na(x))
     wt_has_na <- any(is.na(wt))
     na_args <- c("x", "wt")[c(x_has_na, wt_has_na)]
@@ -293,7 +273,5 @@ check_wt_inputs <- function(x, wt, na.rm, call = rlang::caller_env()) {
         "i" = "Set {.arg na.rm = TRUE} to remove cases with `NA` values in {.arg x} or {.arg wt}"
       ))
     }
-
   }
-
 }

@@ -12,14 +12,14 @@ do_stata(file, wd = NULL, stata_exe = NULL)
 \item{wd}{Working directory in which to run the \code{.do} file. Defaults to the
 current working directory.}
 
-\item{stata_exe}{Path to your Stata executable. If \code{NULL}, the default,
-the STATA_EXE environment variable is used.}
+\item{stata_exe}{Path to your Stata executable. If \code{NULL}, the default, the
+STATA_EXE environment variable is used.}
 }
 \value{
 Path to the Stata \code{.do} file, invisibly.
 }
 \description{
-\code{do_stata()} calls Stata to run a specified \code{.do} file in  \href{https://www.stata.com/support/faqs/windows/batch-mode/}{batch mode}.
+\code{do_stata()} calls Stata to run a specified \code{.do} file in \href{https://www.stata.com/support/faqs/windows/batch-mode/}{batch mode}.
 }
 \details{
 \subsection{Specifying the Stata executable}{
