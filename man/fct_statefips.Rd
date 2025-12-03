@@ -27,13 +27,12 @@ postal abbreviation.
 fips <- c(1, 6, 11, 48)
 fct_statefips(fips)
 
-# Character vectors work too; elements that can't be coerced to an integer
-# will be `NA`
+# Drop unused factor levels from the output:
+fct_statefips(fips, drop_unused = TRUE)
+
+# Character vector elements that can't be coerced to integer will be `NA`.
 fips_chr <- c("01", "06", "11", "48", "XYZ")
 fct_statefips(fips_chr)
-
-# Resulting levels may be restricted to those present in the input
-fct_statefips(fips, drop_unused = TRUE)
 
 }
 \seealso{

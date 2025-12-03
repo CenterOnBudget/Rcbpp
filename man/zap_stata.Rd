@@ -22,7 +22,7 @@ The input data frame sans Stata attributes.
 \item Removes variable labels, value labels, format attributes, and display
 width attributes from all variables
 \item Removes dataset label and notes
-\item Converts all tagged missing values to regular R NA
+\item Converts all tagged missing values to regular R \code{NA}
 }
 }
 \examples{

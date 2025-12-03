@@ -121,12 +121,12 @@ add_race_eth_var <- function(
 #' @examples
 #' library(dplyr)
 #'
-#' acs %>%
-#'   select(agep) %>%
+#' acs |>
+#'   select(agep) |>
 #'   add_age_group_var(dataset = "acs")
 #'
 #' cps %>%
-#'   select(a_age) %>%
+#'   select(a_age) |>
 #'   add_age_group_var(dataset = "cps_asec", name = agecat3)
 #'
 #' @export

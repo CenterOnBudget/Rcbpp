@@ -41,7 +41,7 @@ Stata. Stata output and any error messages can be found in the \code{.log} file.
 }
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (FALSE) withAutoprint(\{ # examplesIf}
 # Specify the Stata executable
 do_stata("script.do", stata_exe = "C:/Program Files/Stata18/StataMP-64.exe")
 

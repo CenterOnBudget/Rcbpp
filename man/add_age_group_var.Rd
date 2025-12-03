@@ -41,12 +41,12 @@ years 1998 to present are supported and the required variable is \code{prtage}.
 \examples{
 library(dplyr)
 
-acs \%>\%
-  select(agep) \%>\%
+acs |>
+  select(agep) |>
   add_age_group_var(dataset = "acs")
 
 cps \%>\%
-  select(a_age) \%>\%
+  select(a_age) |>
   add_age_group_var(dataset = "cps_asec", name = agecat3)
 
 }

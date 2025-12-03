@@ -7,7 +7,7 @@
 #' - Removes variable labels, value labels, format attributes, and display
 #' width attributes from all variables
 #' - Removes dataset label and notes
-#' - Converts all tagged missing values to regular R NA
+#' - Converts all tagged missing values to regular R `NA`
 #'
 #' @param data A data frame or data frame extension (e.g. a tibble).
 #' @param df `r lifecycle::badge("deprecated")` Use of `df` is now deprecated;

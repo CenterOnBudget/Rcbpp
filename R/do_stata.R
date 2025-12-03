@@ -5,7 +5,7 @@
 #' mode](https://www.stata.com/support/faqs/windows/batch-mode/).
 #'
 #' @details
-#' ## Specifying the Stata executable
+#' ### Specifying the Stata executable
 #'
 #' `do_stata()` needs to know the location of your Stata executable. To avoid
 #' supplying the path to every time, add a STATA_EXE environment variable to
@@ -13,7 +13,7 @@
 #' Files/Stata18/StataMP-64.exe'`. (Tip: open your `.Renviron` with
 #' [usethis::edit_r_environ()].)
 #'
-#' ## Log file and Stata errors
+#' ### Log file and Stata errors
 #'
 #' Running a `.do` file in batch mode will create a `.log` file in the same
 #' working directory in which the `.do` file ran. This is a feature of Stata

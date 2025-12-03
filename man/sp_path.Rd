@@ -29,7 +29,7 @@ within the user's SharePoint directory. For example, \code{sp_data_path("ACS", "
 }
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 sp_path()
 od_path("my_folder/my_file.csv")
 sp_data_path("CPS-BASIC", "2023", paste0(tolower(month.abb), "23pub.dta"))

@@ -18,7 +18,7 @@
 #'   - `n`: A single integer giving the number of quantiles.
 #'   - `probs`: A numeric vector of probabilities with values greater than 0 and
 #'   less than 1.
-#' @param names If `TRUE`, the result will have [names] of the form specified in
+#' @param names If `TRUE`, the result will have names of the form specified in
 #'   `names_format`.
 #' @param names_format A function or formula to transform the probabilities into
 #'   a vector of names. Default is `\(p) paste0(round(p * 100, 1), "%")`. Only

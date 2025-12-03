@@ -43,7 +43,7 @@ to be produced:
 less than 1.
 }}
 
-\item{names}{If \code{TRUE}, the result will have \link{names} of the form specified in
+\item{names}{If \code{TRUE}, the result will have names of the form specified in
 \code{names_format}.}
 
 \item{names_format}{A function or formula to transform the probabilities into
