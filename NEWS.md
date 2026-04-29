@@ -22,7 +22,7 @@
 
 ## Built-in datasets
 
--   `cpi_u_rs` now contains a row for 2024.
+-   `cpi_u_rs` now contains rows for 2024 and 2025.
 
 -   Added three toy microdatasets for examples and testing: `acs`, `cps`, and `cps_unzapped`
 

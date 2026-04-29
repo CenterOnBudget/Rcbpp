@@ -15,6 +15,6 @@ raw_cpi_u_rs <- readxl::read_xlsx("data-raw/cpi_u_rs.xlsx", skip = 5)
 cpi_u_rs <- raw_cpi_u_rs |>
   rename_with(tolower) |>
   select(year, cpi_u_rs = avg) |>
-  filter(year >= 1978)
+  filter(year >= 1978, !is.na(cpi_u_rs))
 
 usethis::use_data(cpi_u_rs, overwrite = TRUE)
