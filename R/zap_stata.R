@@ -39,7 +39,7 @@ zap_stata <- function(data, df = deprecated()) {
     data <- df
   }
 
-  check_data_frame(data)
+  rlang::check_data_frame(data)
 
   attr(data, "notes") <- NULL
   attr(data, "label") <- NULL

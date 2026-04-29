@@ -110,20 +110,20 @@ wt_median <- function(x, wt, na.rm = FALSE) {
 #' @rdname wt_stats
 #' @export
 wt_quantile <- function(
-  x,
-  wt,
-  n,
-  probs,
-  na.rm = FALSE,
-  names = TRUE,
-  names_format = \(p) paste0(round(p * 100), "%")
+    x,
+    wt,
+    n,
+    probs,
+    na.rm = FALSE,
+    names = TRUE,
+    names_format = \(p) paste0(round(p * 100), "%")
 ) {
   rlang::check_exclusive(n, probs)
 
   if (!missing(probs)) {
     if (
       !is.numeric(probs) ||
-        any(probs >= 1, probs <= 0, is.na(probs), is.null(probs), na.rm = TRUE)
+      any(probs >= 1, probs <= 0, is.na(probs), is.null(probs), na.rm = TRUE)
     ) {
       cli::cli_abort(
         "{.arg probs} must be a numeric vector with values greater than 0 and less than 1"
@@ -131,17 +131,8 @@ wt_quantile <- function(
     }
   }
 
-  if (!missing(n)) {
-    if (!rlang::is_scalar_integerish(n, finite = TRUE)) {
-      cli::cli_abort(
-        "{.arg n} must be a single integer, not {.obj_type_friendly n}"
-      )
-    }
-    if ((n < 2) || (n > 100)) {
-      cli::cli_abort(
-        "{.arg n} must be between 2 and 100"
-      )
-    }
+  if (!rlang::is_missing(n)) {
+    rlang::check_number_whole(n, min = 2, max = 100)
     probs <- seq_len(n - 1) / n
   }
 
@@ -238,16 +229,18 @@ wt_quantile_df <- function(x, wt, n, probs, na.rm = FALSE) {
 
 
 check_wt_inputs <- function(x, wt, na.rm, call = rlang::caller_env()) {
-  if (!(is.numeric(x) | rlang::is_logical(x))) {
-    cli::cli_abort(
-      "{.arg x} must be a numeric or logical vector, not {.obj_type_friendly {x}}",
-      call = call
+  if (!(is.numeric(x) || rlang::is_logical(x))) {
+    rlang::stop_input_type(
+      x,
+      c("a numeric vector", "a logical vector"),
+      show_value = FALSE
     )
   }
   if (!is.numeric(wt)) {
-    cli::cli_abort(
-      "{.arg wt} must be a numeric vector, not {.obj_type_friendly {wt}}",
-      call = call
+    rlang::stop_input_type(
+      x,
+      "a numeric vector",
+      show_value = FALSE
     )
   }
   if (length(x) != length(wt)) {

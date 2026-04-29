@@ -40,6 +40,11 @@
 #' @export
 
 do_stata <- function(file, wd = NULL, stata_exe = NULL) {
+
+  rlang::check_string(file)
+  rlang::check_string(wd, allow_null = TRUE)
+  rlang::check_string(stata_exe, allow_null = TRUE)
+
   if (!fs::file_exists(file)) {
     cli::cli_abort("{.val {file}} does not exist.")
   }

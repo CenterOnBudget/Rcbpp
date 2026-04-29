@@ -43,7 +43,7 @@ add_race_eth_var <- function(
   dataset = c("acs", "cps_asec", "cps_basic"),
   name = "race_eth"
 ) {
-  check_data_frame(data)
+  rlang::check_data_frame(data)
 
   dataset <- rlang::arg_match(dataset)
 
@@ -136,7 +136,7 @@ add_age_group_var <- function(
   dataset = c("acs", "cps_asec", "cps_basic"),
   name = "age_group"
 ) {
-  check_data_frame(data)
+  rlang::check_data_frame(data)
 
   dataset <- rlang::arg_match(dataset)
 
